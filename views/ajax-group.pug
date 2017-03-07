@@ -1,0 +1,35 @@
+html
+	head
+		title testing
+		script(src="jquery-3.1.1.min.js")
+	body
+		select#selectbar
+			option(value='all')  All
+			option(value='the Netherlands')  The Netherlands
+			option(value='Germany')  Germany
+			option(value='Spain')  Spain
+			option(value='France')  France
+			option(value='UK')  UK
+		div#results
+			each road in roads
+				.allResults
+					h1 #{road.routename}
+					h3 #{road.country}
+					p #{road.description}
+	script.
+		$(document).ready(function(){
+			$('#selectbar').change(function(event){
+				console.log('console.logging value')
+				console.log(event.currentTarget.value)
+				$.post('/', {value:event.currentTarget.value}, function(res, status){
+					console.log('console.logging result')
+					console.log(res.roads.length)
+					$('.allResults').remove()
+					for(var i = 0; i < res.roads.length; i++){
+						$('#results').append('<div class="allResults"><h1>' + res.roads[i].routename + '</h1>' +
+							'<h3>' + res.roads[i].country + '</h3>' +
+							'<p>' + res.roads[i].description + '</p></div>')
+					}
+				})
+			})
+		})
