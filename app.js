@@ -8,6 +8,7 @@ const pg = require('pg');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const bcrypt = require('bcrypt');
 
 app.use(bodyParser.urlencoded({extended: true}));  
 app.use(bodyParser.json());
@@ -41,7 +42,7 @@ const Roads = sequelize.define('road', {
 app.get('/', (req, res) => {
 	Roads.findAll()
 	.then(function(result){
-		res.render('index', {roads: result})
+		res.render('index', {roads: result, user: req.session.user})
 	})
 });
 
@@ -68,49 +69,62 @@ app.post('/', (req, res)=> {
 	}
 })
 
-app.post('/login', (req, res) => {
-	console.log(req.body.username)
-	if (req.body.username.length === 0){
-		res.redirect('/login/?message=' + encodeURIComponent("Please fill out your username."))
+app.post('/login', bodyParser.urlencoded({extended: true}), function (request, response) {
+	if(request.body.email.length === 0) {
+		response.redirect('/?message=' + encodeURIComponent("Please fill out your email address."));
+		return;
 	}
-	if (req.body.password.length === 0){
-		res.redirect('/login/?message=' + encodeURIComponent("Please fill out your password."))
+
+	if(request.body.password.length === 0) {
+		response.redirect('/?message=' + encodeURIComponent("Please fill out your password."));
+		return;
 	}
 
 	User.findOne({
 		where: {
-			username: req.body.username
+			email: request.body.email
 		}
-	}).then((user) => {
-		console.log(user)
-		bcrypt.compare(req.body.password, user.password, function(err, result) {
-			if(result === true) {
-				req.session.user = user;
-				res.redirect('/profile/'+user.username)
-			} else {
-				res.redirect('/login/?message=' + encodeURIComponent("Invalid username or password."))
+	}).then(function (user) {
+		if(user === null) {
+			response.redirect('/?message=' + encodeURIComponent("Invalid email or password."));
+		}
+		else {
+		bcrypt.compare(request.body.password, user.password, (err, result)=>{
+			if (err) throw err;
+			if (user !== null && result) {
+				request.session.user = user;
+				response.redirect('/');
+			}
+			else {
+				response.redirect('/?message=' + encodeURIComponent("Invalid email or password."));
 			}
 		})
-	})
-})
-
-
-app.post('/signup', (req, res) => {
-	console.log('signup post request is working')  //testing purposes
-	bcrypt.hash(req.body.password, 8, function(err, hash) {
-
-		User.create({ 
-			username: req.body.username,
-			password: hash,
-			email: req.body.email
-		})
-	
-	.then(()=> {
-		res.redirect('/'); 
-	})
-	})
+		}
+	}, function (error) {
+		response.redirect('/?message=' + encodeURIComponent("Invalid email or password."));
+	});
 });
 
+app.post('/signup', (req, res) => {
+	console.log('the signup post is working')
+	let userInputUsername = req.body.username;
+	let userInputEmail = req.body.email;
+	let userInputPassword = req.body.password;
+
+	bcrypt.hash(userInputPassword, 8, (err,hash) =>{
+		if (err) throw err
+
+			return User.create({
+				username: userInputUsername,
+				email: userInputEmail,
+				password: hash
+			})
+
+		.then(function() {
+			res.redirect('/');
+		})
+	})	
+});
 
 // // search
 // app.post('/search', function(req, res){
@@ -123,7 +137,7 @@ app.post('/signup', (req, res) => {
 // });
 
 //server
-sequelize.sync({force:true})
+sequelize.sync(/*{force:true}*/)
 	.then(() => {
 		Roads.create({
 			routename: "Awesome road",
