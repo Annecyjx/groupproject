@@ -1,185 +1,504 @@
-doctype html
 html
   head
-    title Biker Roads Europe
-    link(href='http://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
-    link(type='text/css', rel='stylesheet', href='/../css/bootstrap.min.css', media='screen,projection')
-    link(href="https://fonts.googleapis.com/css?family=Chonburi" rel="stylesheet")
-    meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
-    script(type='text/javascript', src='/../js/jquery-3.1.1.js')
-    script(type='text/javascript', src='/../js/bootstrap.min.js')
+    title Biker Roads Europe 
 
-    style.
-      body {
-        padding: 0px; 
-        margin: 0px; 
-        font-family: "Chonburi", cursive;
-      }
-      .top {
-        height: 100%; 
-        background: url("/../img/serpentine-road-mountain.jpg") no-repeat center center
-      }
+    //- link(href='http://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+    link(href='https://fonts.googleapis.com/css?family=Chonburi', rel='stylesheet')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
+    //- link(type='text/css', rel='stylesheet', href='/../css/materialize.css', media='screen,projection')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+    link(type='text/css' rel='stylesheet', href='/../css/style.css')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
 
-      .navbar {
-        background-color: #bdbdbd; 
-        font-size: 18px; 
-        padding: 0 15%
-      }
-      #logo {
-        width: 200px;
-      }
-      #title {
-      font-family: "Chonburi", cursive; 
-      color: white; 
-      padding: 0px; 
-      margin: 20%; 
-      text-align: center;
-      }
-      .result {
-      height: 500px; 
-      background-color: #bdbdbd;
-      }
-      .result h2 {
-      color: #424242; 
-      padding: 0px; 
-      margin: 0px;
-      }
-      .googlemaps {
-      height: 500px;
-      }
-      .contact {
-      height: 30%; 
-      background-color: #8bc34a; 
-      font-size: 18px; 
-      text-align: center; padding: 5% 0
-      }
-      .navbar-nav {
-      padding: 0;
-      margin-left: 80%;
-
-      }
-      .nav-link {
-      color: #FFFFFF;
-      }
-
-
-
-
-  body
-    div(class='top')
-      nav.navbar.navbar-toggleable-md.navbar-light.bg-faded.sticky-top
-        button.navbar-toggler.navbar-toggler-right(type='button', data-toggle='collapse', data-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
-          span.navbar-toggler-icon
+  body(style='padding: 0px; margin: 0px')
+    button#test(onclick="document.getElementById('id01').style.display='block'", style='width:auto;') Sign Up
+    #id01.modal
+      form.modal-content.animate(action='/')
+        span.close(onclick="document.getElementById('id01').style.display='none'", title='Close Modal') &times;
         |  
-        a.navbar-brand(href='#')
-          img(id='logo', src='/../img/bre.png')
-        #navbarNav.collapse.navbar-collapse
-          ul.navbar-nav
-            if user
-              li.nav-item
-                a.nav-link(href='#') Welcome &nbsp;
-              li.nav-item
-                a.nav-link(href='#')=user.username
-            else
-              li
-                a.nav-link(href='#') Login
-              li
-                a.nav-link(href='#') Sign up
+        .container
+          label
+            b Email
+          |  
+          input(type='text', placeholder='Enter Email', name='email', required='')
+          |  
+          label
+            b Password
+          |  
+          input(type='password', placeholder='Enter Password', name='psw', required='')
+          |  
+          label
+            b Repeat Password
+          |  
+          input(type='password', placeholder='Repeat Password', name='psw-repeat', required='')
+          |  
+          input(type='checkbox', checked='checked')
+          p
+            | By creating an account you agree to our 
+            a(href='#') Terms &amp; Privacy
+            | .
+          .clearfix
+            button.cancelbtn(type='button', onclick="document.getElementById('id01').style.display='none'") Cancel
+            |  
+            button.signupbtn(type='submit') Sign Up
 
+    button.test#test(onclick="document.getElementById('id02').style.display='block'", style='width:auto;') Login
+    #id02.modal
+      form.modal-content.animate(action='/')
+        .imgcontainer
+          span.close(onclick="document.getElementById('id02').style.display='none'", title='Close Modal') &times;
+          |  
+          //- img.avatar(src='/../img/25084837.png', alt='Avatar')
+        .container
+          label
+            b Username
+          |  
+          input(type='text', placeholder='Enter Username', name='uname', required='')
+          |  
+          label
+            b Password
+          |  
+          input(type='password', placeholder='Enter Password', name='psw', required='')
+          |  
+          button.signupbtn(type='submit') Login
+          |  
+          button.cancelbtn(type='button', onclick="document.getElementById('id01').style.display='none'") Cancel
+          |  
+          span.psw
+            | Forgot 
+            a(href='#') password?
+    div(name='panel1', style='height: 100%; background: url("/../img/sunset-summer-motorcycle.jpg") no-repeat center center')
       //- nav
-      //-   .navbar
-      //-     a.navbar-brand(href='#')
-      //-       img(id='logo', src='/../img/bre.png')
-      //-     ul.navbar-nav
-      //-       if user
-      //-         li
-      //-           p(style='margin: 0') Welcome &nbsp;
-      //-         li
-      //-           p(style='margin: 0')=user.username
+      //-   .nav-wrapper(style='background-color: #bdbdbd')
+      //-     a.brand-logo(href='#' style='padding: 0 0 0 15%') Logo
+      //-     ul#nav-mobile.right.hide-on-med-and-down(style='padding: 0 15%')
+      //-       li
+      //-         a(href='#' button) Login
+      //-       li
+      //-         a(href='#') Sign up
 
-      //-       else
-      //-         li
-      //-           a(href='#') Login
-      //-         li
-      //-           a(href='#') Sign up
+      img#logo(src='/../img/bre.png', alt='')
+
       .container
-        h1(id='title') BIKER ROADS EUROPE
+        h1(style='color: white; padding: 0px; margin: 20%; text-align: center') Biker Roads Europe
         .valign-wrapper
-          .row
-            form(name='search', method='POST', action='/')
-              .row(style='width: 100%')
-                .input-field.col.m6(style='width: 100%')
-                  input#search.validate( type='text', name='search')
+            .input-field.col.m6
+              b Select your country route:
+              select#selectbar
+                option(value='all') All Countries
+                option(value='Germany') Germany
+                option(value='Ireland') Ireland
+                option(value='Bosnia and Herzegovina') Bosnia and Herzegovina
+                option(value='Norway') Norway
+                option(value='Spain') Spain
+                option(value='Italy') Italy
+                option(value='Romania') Romania
+                option(value='Austria') Austria
+      //- .valign-wrapper
+      //-   .row
+      //-     form(name='search', method='POST', action='/')
+      //-       .row(style='width: 100%')
+      //-         .input-field.col.m6(style='width: 100%')
+      //-           input#search.validate( type='text', name='search')
 
-    div(class='result')
-      h1 RESULT
-      select
-        option(value='Holland') Holland
-        option(value='Spain') Spain
-        option(value='Norway') Norway
+    
 
-    div(class='googlemaps')
+  
+
+    div(name='panel2', style='height: 100%; background-color: #bdbdbd; ')
+
+      h1(style='color: #424242; padding: 0px; margin: 0px' center) RESULT
+      br
+      //- .container
+      //- .mt100
+      section.row
+        .col-lg-3.col-sm-4.col-xs-6.image-holder
+          .panel.panel-default
+            .panel-body
+              a.zoom(href='#', data-toggle='modal', data-target='#lightbox1' )
+                img(src='/../img/wild-atlantic-way-road-trip.png', alt='...')
+                span.overlay.modal-backdrop.fade.in
+                  i.glyphicon.glyphicon-fullscreen
+        //- modal 
+        #lightbox1.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+          .modal-dialog
+            .modal-content
+              .modal-header
+                button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                h4#myModalLabel.modal-title Dublin, Ireland
+                h6 Insert additional information about the route in here.
+              .modal-body
+                img(src='/../img/wild-atlantic-way-road-trip.png', alt='')
+
+        .col-lg-3.col-sm-4.col-xs-6.image-holder
+          .panel.panel-default
+            .panel-body
+              a.zoom(href='#', data-toggle='modal', data-target='#lightbox2' )
+                img(src='/../img/alps03.jpg', alt='...')
+                span.overlay.modal-backdrop.fade.in
+                  i.glyphicon.glyphicon-fullscreen
+        #lightbox2.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+          .modal-dialog
+            .modal-content
+              .modal-header
+                button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                h4#myModalLabel.modal-title Stuttgart, Germany
+                h6 Insert additional information about the route in Germany.
+
+              .modal-body
+                img(src='/../img/alps03.jpg', alt='')
+
+        .col-lg-3.col-sm-4.col-xs-6.image-holder
+          .panel.panel-default
+            .panel-body
+              a.zoom(href='#', data-toggle='modal', data-target='#lightbox3' )
+                img(src='/../img/norway.jpg', alt='...')
+                span.overlay.modal-backdrop.fade.in
+                  i.glyphicon.glyphicon-fullscreen
+        #lightbox3.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+          .modal-dialog
+            .modal-content
+              .modal-header
+                button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                h4#myModalLabel.modal-title Skei to Haltdalen, Norway
+                h6 Insert additional information about the route.
+              .modal-body
+                img(src='/../img/norway.jpg', alt='')
+
+        .col-lg-3.col-sm-4.col-xs-6.image-holder
+          .panel.panel-default
+            .panel-body
+              a.zoom(href='#', data-toggle='modal', data-target='#lightbox4' )
+                img(src='/../img/pexels-photo-27618.jpg', alt='...')
+                span.overlay.modal-backdrop.fade.in
+                  i.glyphicon.glyphicon-fullscreen
+        #lightbox4.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+          .modal-dialog
+            .modal-content
+              .modal-header
+                button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                h4#myModalLabel.modal-title A Coruña to Montjoi, Spain
+                h6 Insert additional information about the route.
+              .modal-body
+                img(src='/../img/pexels-photo-27618.jpg', alt='')
+
+      .container
+      .mt100
+      section.row
+        .col-lg-3.col-sm-4.col-xs-6.image-holder
+          .panel.panel-default
+            .panel-body
+              a.zoom(href='#', data-toggle='modal', data-target='#lightbox5' )
+                img(src='/../img/italian-landscape-mountains-nature.jpg', alt='...')
+                span.overlay.modal-backdrop.fade.in
+                  i.glyphicon.glyphicon-fullscreen
+        #lightbox5.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+          .modal-dialog
+            .modal-content
+              .modal-header
+                button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                h4#myModalLabel.modal-title Fiastra to Amendolea, Italy
+                h6 Insert additional information about the route.
+              .modal-body
+                img(src='/../img/italian-landscape-mountains-nature.jpg', alt='')
+        .col-lg-3.col-sm-4.col-xs-6.image-holder
+          .panel.panel-default
+            .panel-body
+              a.zoom(href='#', data-toggle='modal', data-target='#lightbox6' )
+                img(src='/../img/Bosnia road trip 6.jpg', alt='...')
+                span.overlay.modal-backdrop.fade.in
+                  i.glyphicon.glyphicon-fullscreen
+        #lightbox6.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+          .modal-dialog
+            .modal-content
+              .modal-header
+                button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                h4#myModalLabel.modal-title Bosnia Herzogovina
+                h6 Insert additional information about the route.
+              .modal-body
+                img(src='/../img/Bosnia road trip 6.jpg', alt='')
+        .col-lg-3.col-sm-4.col-xs-6.image-holder
+          .panel.panel-default
+            .panel-body
+              a.zoom(href='#', data-toggle='modal', data-target='#lightbox7' )
+                img(src='/../img/romania.jpeg', alt='...')
+                span.overlay.modal-backdrop.fade.in
+                  i.glyphicon.glyphicon-fullscreen
+        #lightbox7.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+          .modal-dialog
+            .modal-content
+              .modal-header
+                button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                h4#myModalLabel.modal-title Romania
+                h6 Insert additional information about the route.
+              .modal-body
+                img(src='/../img/romania.jpeg', alt='')
+        .col-lg-3.col-sm-4.col-xs-6.image-holder
+          .panel.panel-default
+            .panel-body
+              a.zoom(href='#', data-toggle='modal', data-target='#lightbox8' )
+                img(src='/../img/austria.jpeg', alt='...')
+                span.overlay.modal-backdrop.fade.in
+                  i.glyphicon.glyphicon-fullscreen
+        #lightbox8.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+          .modal-dialog
+            .modal-content
+              .modal-header
+                button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                h4#myModalLabel.modal-title Austria
+                h6 Insert additional information about the route.
+              .modal-body
+                img(src='/../img/austria.jpeg', alt='')
+
+
+      //- img#myImg(src='/../img/img_fjords.jpg', alt='Insert here more information on the route and the location of the route. A', width='300', height='200')
+      //- #myModal.modalbackground
+      //- span.closebutton
+      //- |  
+      //- img#img01.modal-content-image
+      //- #caption
+      //- br
+
+
+    
+
+      h1(style='color: #424242; padding: 0px; margin: 0px') RESULT
+        div#results
+          each road in roads
+            .allResults
+              h1 #{road.routename}
+              h3 #{road.country}
+              p #{road.description}
+
+        script.
+          $(document).ready(function(){
+            $('#selectbar').change(function(event){
+              console.log('console.logging value')
+              console.log(event.currentTarget.value)
+              $.post('/', {value:event.currentTarget.value}, function(res, status){
+                //console.log('console.logging result')
+                //console.log(res.roads.length)
+                $('.allResults').remove()
+                for(var i = 0; i < res.roads.length; i++){
+                  $('#results').append('<div class="allResults"><h1>' + res.roads[i].routename + '</h1>' +
+                    '<h3>' + res.roads[i].country + '</h3>' +
+                    '<p>' + res.roads[i].description + '</p></div>')
+                }
+              })
+            })
+          })
+
+    div(name='panelGooglemaps', id='googleMap',style='width:100%;height:400px;')
+      |  &nbsp;     
       h1 GOOGLE MAPS
+      script.
+        //DirectionsService object to send and receive direction requests
+        //DirectionsRenderer object to render the returned route on the map
+        function initMap() {
+          var directionsDisplay = new google.maps.DirectionsRenderer;
+          var directionsService = new google.maps.DirectionsService;
+          // Create a map and center it on Zurich
+          var mapProp= {
+            center: new google.maps.LatLng(47.381153,8.538430),
+            zoom:4,
+          }      
+          var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+          directionsDisplay.setMap(map);
+          
+          markerA = new google.maps.Marker({
+            position: new google.maps.LatLng(52.5200,13.4050),
+            title: 'Germany',
+            label:'A',
+            map:map
+          })
+          markerB = new google.maps.Marker({
+            position: new google.maps.LatLng(53.350545,-6.260608),
+            title: 'Ireland',
+            label:'B',
+            map:map
+          })
+          markerC = new google.maps.Marker({
+            position: new google.maps.LatLng(43.856295, 18.413068),
+            title: 'Bosnia and Herzegovina',
+            label:'C',
+            map:map
+          })
+          markerD = new google.maps.Marker({
+            position: new google.maps.LatLng(59.914260,10.752588),
+            title: 'Norway',
+            label:'D',
+            map:map
+          })
+          markerE = new google.maps.Marker({
+            position: new google.maps.LatLng(40.420253,-3.705194),
+            title: 'Spain',
+            label:'E',
+            map:map
+          })
+          markerF = new google.maps.Marker({
+            position: new google.maps.LatLng(41.904305, 12.494188),
+            title: 'Italy',
+            label:'F',
+            map:map
+          })
+          markerG = new google.maps.Marker({
+            position: new google.maps.LatLng(44.428859,26.103820),
+            title: 'Romania',
+            label:'G',
+            map:map
+          })
+          markerH = new google.maps.Marker({
+            position: new google.maps.LatLng(48.209638,16.373528),
+            title: 'Austria',
+            label:'H',
+            map:map
+          })
+          //get route from A to B
+          var onChangeHandler = function() {
+            calculateAndDisplayRoute(directionsService, directionsDisplay)
+          };
+          document.getElementById('selectbar').addEventListener('change', onChangeHandler);
+        }
 
-    div(class='contact')
-        p bikerroadseurope@bre.com
-        p 020-45354535
-        p Bikersrule 258, 9898 BR, Amsterdam
-    div(name='templogin')
-      .header
-          br
-          h1 Login
-          br
-      .row
-        form(method='POST', action='/login')
-          .row
-            .input-field.col.s12
-              input#email.validate(type='text', name='email', maxlength=255, required)
-              |
-              br
-              | 
-              label(for='email', class='active') Email
-            .input-field.col.s12
-              input#password.validate(type='password', name='password', maxlength=255, required)
-              |
-              br
-              | 
-              label(for='password', class='active') Password
-            .input-field.col.s12
-              button.btn.btn-primary(type='submit') Submit
 
-        h2#error-message= message
+        function calculateAndDisplayRoute(directionsService, directionsDisplay){
+          console.log('calculateAndDisplayRoute')
+          var countryName = document.getElementById('selectbar').value; 
+          $.get('/specroute?countryName='+countryName, function(res, status){
+            console.log('logging res and status')
+            console.log(res)
+            console.log(status)
+            var mapProp= {
+              center: new google.maps.LatLng(47.381153,8.538430),
+              zoom:4,
+            }  
+            var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+            directionsDisplay.setMap(map);
 
-      .header
-        br
-        h1 Sign up
-        br
-      .row
-        form(name='signup', method='POST', action='/signup')
-          .row
-            .input-field.col.s12
-              input#username.validate(type='text', name='username', maxlength=255, required)
-              |
-              br
-              |
-              label(for='username', class='active') Username
-            .input-field.col.s12
-              input#email.validate(type='text', name='email', maxlength=255, required)
-              |
-              br
-              |
-              label(for='email', class='active') Email
-            .input-field.col.s12
-              input#password.validate(type='password', name='password', maxlength=255, required)
-              |
-              br
-              |
-              label(for='password', class='active') Password
-            .input-field.col.s12
-              button.btn.btn-primary(type='submit') Sign up
+            if (countryName=='all'){
+                directionsDisplay.setMap(null);
+              markerA = new google.maps.Marker({
+                position: new google.maps.LatLng(52.5200,13.4050),
+                title: 'Germany',
+                label:'A',
+                map:map
+              })
+              markerB = new google.maps.Marker({
+                position: new google.maps.LatLng(53.350545,-6.260608),
+                title: 'Ireland',
+                label:'B',
+                map:map
+              })
+              markerC = new google.maps.Marker({
+                position: new google.maps.LatLng(43.856295, 18.413068),
+                title: 'Bosnia and Herzegovina',
+                label:'C',
+                map:map
+              })
+              markerD = new google.maps.Marker({
+                position: new google.maps.LatLng(59.914260,10.752588),
+                title: 'Norway',
+                label:'D',
+                map:map
+              })
+              markerE = new google.maps.Marker({
+                position: new google.maps.LatLng(40.420253,-3.705194),
+                title: 'Spain',
+                label:'E',
+                map:map
+              })
+              markerF = new google.maps.Marker({
+                position: new google.maps.LatLng(41.904305, 12.494188),
+                title: 'Italy',
+                label:'F',
+                map:map
+              })
+              markerG = new google.maps.Marker({
+                position: new google.maps.LatLng(44.428859,26.103820),
+                title: 'Romania',
+                label:'G',
+                map:map
+              })
+              markerH = new google.maps.Marker({
+                position: new google.maps.LatLng(48.209638,16.373528),
+                title: 'Austria',
+                label:'H',
+                map:map
+              })
+            }
+            else{
+              directionsService.route({
+                origin: new google.maps.LatLng(res[0].latA,res[0].lngA),
+                destination: new google.maps.LatLng(res[0].latB,res[0].lngB),
+                travelMode: 'DRIVING'
+              }, 
+                function(response, status) {
+                  if (status === 'OK') {
+                    directionsDisplay.setDirections(response);
+                  } 
+                  else {
+                    window.alert('Directions request failed due to ' + status);
+                  }
+              });
+            }
+          })
+        }
 
-        h2#error-message= message
 
 
+    button#myBtn(onclick='topFunction()', title='Go to top') Top
 
-    script(type='text/javascript', src='/..js/materialize.js')
+    footer.footer-distributed
+      .footer-left
+        h3
+          img#logo(src='/../img/bre.png', alt='')
+        p.footer-links
+          a(href='#') Home
+          |  &middot; 
+          a(href='#') Images
+          |  &middot; 
+          a(href='#') Map
+          |  &middot; 
+          a(href='#') Sign up
+          |  &middot; 
+          a(href='#') Login
+          |  &middot; 
+          a(href='#') Contact
+        p.footer-company-name Biker Roads Europe &copy; 2017
+      .footer-center
+        div
+          i.fa.fa-map-marker
+          p
+            span Johan Huizingalaan 763
+            |  Amsterdam, Netherlands
+        div
+          i.fa.fa-phone
+          p +316 170 51426
+        div
+          i.fa.fa-envelope
+          p
+            a(href='mailto:support@Bikerroadseurope.com') support@bikersroadeurope.com
+      .footer-right
+        p.footer-company-about
+          span About the company
+          |  This great website was created to make Europeans bikers' life easier. Big thank you to the beautiful Toska, fabolous Lisa and the lovely Xuan!
+        .footer-icons
+          a(href='#')
+            i.fa.fa-facebook
+          a(href='#')
+            i.fa.fa-twitter
+          a(href='#')
+            i.fa.fa-linkedin
+          a(href='#')
+            i.fa.fa-github
+
+      //- div(name='panel4', style='height: 30%; background-color: #8bc34a')
+      //- h1 CONTACT
+
+  script(src='https://code.jquery.com/jquery.js')
+  script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
+  script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js')
+  script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyA9hyb7Hz8M7ZgAoJyXThHFx5951myltTI&callback=initMap')
+  script(type='text/javascript', src='/../js/jquery-3.1.1.js')
+  //- script(type='text/javascript', src='/..js/materialize.js')
+  script(type='text/javascript', src='/js/Javascript.js')
