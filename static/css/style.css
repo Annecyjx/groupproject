@@ -435,7 +435,10 @@ h6 {
     text-align: center;
 }
 
-
+img#logo {
+    max-height: 66px;
+    max-width: 200px;
+}
 
 /*Xuan */
 
