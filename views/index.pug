@@ -1,6 +1,6 @@
 html
   head
-    title Biker Roads Europe
+    title Biker Roads Europe 
 
     //- link(href='http://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
     link(href='https://fonts.googleapis.com/css?family=Chonburi', rel='stylesheet')
@@ -79,8 +79,20 @@ html
 
       img(src='/../img/bre.png', alt='')
       .container
-          h1(style='color: white; padding: 0px; margin: 20%; text-align: center') Biker Roads Europe
-
+        h1(style='color: white; padding: 0px; margin: 20%; text-align: center') Biker Roads Europe
+        .valign-wrapper
+            .input-field.col.m6
+              b Select your country route:
+              select#selectbar
+                option(value='all') All Countries
+                option(value='Germany') Germany
+                option(value='Ireland') Ireland
+                option(value='Bosnia and Herzegovina') Bosnia and Herzegovina
+                option(value='Norway') Norway
+                option(value='Spain') Spain
+                option(value='Italy') Italy
+                option(value='Romania') Romania
+                option(value='Austria') Austria
       //- .valign-wrapper
       //-   .row
       //-     form(name='search', method='POST', action='/')
@@ -90,6 +102,7 @@ html
 
     
 
+  
 
     div(name='panel2', style='height: 100%; background-color: #bdbdbd; ')
 
@@ -245,26 +258,9 @@ html
       //- #caption
       //- br
 
-     
-    div(name='panel3', style='height: 70%')
 
-          
-          .valign-wrapper
-            .input-field.col.m6
-              b Select your country route:
-              select#selectbar
-                option(value='all') All Country
-                option(value='Germany') Germany
-                option(value='Ireland') Ireland
-                option(value='Bosnia and Herzegovina') Bosnia and Herzegovina
-                option(value='Norway') Norway
-                option(value='Spain') Spain
-                option(value='Italy') Italy
-                option(value='Romania') Romania
-                option(value='Austria') Austria
     
 
-    div(name='panelResult', style='height: 100%; background-color: #bdbdbd; ')
       h1(style='color: #424242; padding: 0px; margin: 0px') RESULT
       div#results
         each road in roads
