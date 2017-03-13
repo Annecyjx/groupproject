@@ -1,6 +1,7 @@
 html
   head
     title Biker Roads Europe
+
     //- link(href='http://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
     link(href='https://fonts.googleapis.com/css?family=Chonburi', rel='stylesheet')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
@@ -8,9 +9,6 @@ html
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
     link(type='text/css' rel='stylesheet', href='/../css/style.css')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
-
-
-
 
   body(style='padding: 0px; margin: 0px')
     button#test(onclick="document.getElementById('id01').style.display='block'", style='width:auto;') Sign Up
@@ -82,13 +80,6 @@ html
       img(src='/../img/bre.png', alt='')
       .container
           h1(style='color: white; padding: 0px; margin: 20%; text-align: center') Biker Roads Europe
-           //select bar  
-          select#testing
-            option(selected='selected', disabled='') Select one
-            option(value="All") All Roads
-            option(value='Holland') Holland
-            option(value='Spain') Spain
-            option(value='Norway') Norway
 
       //- .valign-wrapper
       //-   .row
@@ -256,7 +247,206 @@ html
 
      
     div(name='panel3', style='height: 70%')
+
+          
+          .valign-wrapper
+            .input-field.col.m6
+              b Select your country route:
+              select#selectbar
+                option(value='all') All Country
+                option(value='Germany') Germany
+                option(value='Ireland') Ireland
+                option(value='Bosnia and Herzegovina') Bosnia and Herzegovina
+                option(value='Norway') Norway
+                option(value='Spain') Spain
+                option(value='Italy') Italy
+                option(value='Romania') Romania
+                option(value='Austria') Austria
+    
+
+    div(name='panelResult', style='height: 100%; background-color: #bdbdbd; ')
+      h1(style='color: #424242; padding: 0px; margin: 0px') RESULT
+      div#results
+        each road in roads
+          .allResults
+            h1 #{road.routename}
+            h3 #{road.country}
+            p #{road.description}
+
+      script.
+        $(document).ready(function(){
+          $('#selectbar').change(function(event){
+            console.log('console.logging value')
+            console.log(event.currentTarget.value)
+            $.post('/', {value:event.currentTarget.value}, function(res, status){
+              //console.log('console.logging result')
+              //console.log(res.roads.length)
+              $('.allResults').remove()
+              for(var i = 0; i < res.roads.length; i++){
+                $('#results').append('<div class="allResults"><h1>' + res.roads[i].routename + '</h1>' +
+                  '<h3>' + res.roads[i].country + '</h3>' +
+                  '<p>' + res.roads[i].description + '</p></div>')
+              }
+            })
+          })
+        })
+
+    div(name='panelGooglemaps', id='googleMap',style='width:100%;height:400px;')
+      |  &nbsp;     
       h1 GOOGLE MAPS
+      script.
+        //DirectionsService object to send and receive direction requests
+        //DirectionsRenderer object to render the returned route on the map
+        function initMap() {
+          var directionsDisplay = new google.maps.DirectionsRenderer;
+          var directionsService = new google.maps.DirectionsService;
+          // Create a map and center it on Zurich
+          var mapProp= {
+            center: new google.maps.LatLng(47.381153,8.538430),
+            zoom:4,
+          }      
+          var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+          directionsDisplay.setMap(map);
+          
+          markerA = new google.maps.Marker({
+            position: new google.maps.LatLng(52.5200,13.4050),
+            title: 'Germany',
+            label:'A',
+            map:map
+          })
+          markerB = new google.maps.Marker({
+            position: new google.maps.LatLng(53.350545,-6.260608),
+            title: 'Ireland',
+            label:'B',
+            map:map
+          })
+          markerC = new google.maps.Marker({
+            position: new google.maps.LatLng(43.856295, 18.413068),
+            title: 'Bosnia and Herzegovina',
+            label:'C',
+            map:map
+          })
+          markerD = new google.maps.Marker({
+            position: new google.maps.LatLng(59.914260,10.752588),
+            title: 'Norway',
+            label:'D',
+            map:map
+          })
+          markerE = new google.maps.Marker({
+            position: new google.maps.LatLng(40.420253,-3.705194),
+            title: 'Spain',
+            label:'E',
+            map:map
+          })
+          markerF = new google.maps.Marker({
+            position: new google.maps.LatLng(41.904305, 12.494188),
+            title: 'Italy',
+            label:'F',
+            map:map
+          })
+          markerG = new google.maps.Marker({
+            position: new google.maps.LatLng(44.428859,26.103820),
+            title: 'Romania',
+            label:'G',
+            map:map
+          })
+          markerH = new google.maps.Marker({
+            position: new google.maps.LatLng(48.209638,16.373528),
+            title: 'Austria',
+            label:'H',
+            map:map
+          })
+          //get route from A to B
+          var onChangeHandler = function() {
+            calculateAndDisplayRoute(directionsService, directionsDisplay)
+          };
+          document.getElementById('selectbar').addEventListener('change', onChangeHandler);
+        }
+
+
+        function calculateAndDisplayRoute(directionsService, directionsDisplay){
+          console.log('calculateAndDisplayRoute')
+          var countryName = document.getElementById('selectbar').value; 
+          $.get('/specroute?countryName='+countryName, function(res, status){
+            console.log('logging res and status')
+            console.log(res)
+            console.log(status)
+            var mapProp= {
+              center: new google.maps.LatLng(47.381153,8.538430),
+              zoom:4,
+            }  
+            var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+            directionsDisplay.setMap(map);
+
+            if (countryName=='all'){
+                directionsDisplay.setMap(null);
+              markerA = new google.maps.Marker({
+                position: new google.maps.LatLng(52.5200,13.4050),
+                title: 'Germany',
+                label:'A',
+                map:map
+              })
+              markerB = new google.maps.Marker({
+                position: new google.maps.LatLng(53.350545,-6.260608),
+                title: 'Ireland',
+                label:'B',
+                map:map
+              })
+              markerC = new google.maps.Marker({
+                position: new google.maps.LatLng(43.856295, 18.413068),
+                title: 'Bosnia and Herzegovina',
+                label:'C',
+                map:map
+              })
+              markerD = new google.maps.Marker({
+                position: new google.maps.LatLng(59.914260,10.752588),
+                title: 'Norway',
+                label:'D',
+                map:map
+              })
+              markerE = new google.maps.Marker({
+                position: new google.maps.LatLng(40.420253,-3.705194),
+                title: 'Spain',
+                label:'E',
+                map:map
+              })
+              markerF = new google.maps.Marker({
+                position: new google.maps.LatLng(41.904305, 12.494188),
+                title: 'Italy',
+                label:'F',
+                map:map
+              })
+              markerG = new google.maps.Marker({
+                position: new google.maps.LatLng(44.428859,26.103820),
+                title: 'Romania',
+                label:'G',
+                map:map
+              })
+              markerH = new google.maps.Marker({
+                position: new google.maps.LatLng(48.209638,16.373528),
+                title: 'Austria',
+                label:'H',
+                map:map
+              })
+            }
+            else{
+              directionsService.route({
+                origin: new google.maps.LatLng(res[0].latA,res[0].lngA),
+                destination: new google.maps.LatLng(res[0].latB,res[0].lngB),
+                travelMode: 'DRIVING'
+              }, 
+                function(response, status) {
+                  if (status === 'OK') {
+                    directionsDisplay.setDirections(response);
+                  } 
+                  else {
+                    window.alert('Directions request failed due to ' + status);
+                  }
+              });
+            }
+          })
+        }
+
 
 
     button#myBtn(onclick='topFunction()', title='Go to top') Top
@@ -311,11 +501,10 @@ html
   script(src='https://code.jquery.com/jquery.js')
   script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
   script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js')
+  script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyA9hyb7Hz8M7ZgAoJyXThHFx5951myltTI&callback=initMap')
   script(type='text/javascript', src='/../js/jquery-3.1.1.js')
   //- script(type='text/javascript', src='/..js/materialize.js')
   script(type='text/javascript', src='/js/Javascript.js')
-
-
 
 
 
