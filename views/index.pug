@@ -110,25 +110,28 @@ html
       br
       //- .container
       //- .mt100
-      section.row
-        .col-lg-3.col-sm-4.col-xs-6.image-holder
-          .panel.panel-default
-            .panel-body
-              a.zoom(href='#', data-toggle='modal', data-target='#lightbox1' )
-                img(src='/../img/wild-atlantic-way-road-trip.png', alt='...')
-                span.overlay.modal-backdrop.fade.in
-                  i.glyphicon.glyphicon-fullscreen
-        //- modal 
-        #lightbox1.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
-          .modal-dialog
-            .modal-content
-              .modal-header
-                button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
-                h4#myModalLabel.modal-title Dublin, Ireland
-                h6 Insert additional information about the route in here.
-              .modal-body
-                img(src='/../img/wild-atlantic-way-road-trip.png', alt='')
 
+      //- $('#id option[value="0"]').attr('selected', 'selected');
+      //- 
+      section.row
+          .col-lg-3.col-sm-4.col-xs-6.image-holder
+            .panel.panel-default
+              .panel-body
+                a.zoom(href='#', data-toggle='modal', data-target='#lightbox1' )
+                  img(src='/../img/wild-atlantic-way-road-trip.png', alt='...')
+                  span.overlay.modal-backdrop.fade.in
+                    i.glyphicon.glyphicon-fullscreen
+          //- modal 
+          #lightbox1.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+            .modal-dialog
+              .modal-content
+                .modal-header
+                  button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                  h4#myModalLabel.modal-title Dublin, Ireland
+                  h6 Insert additional information about the route in here.
+                .modal-body
+                  img(src='/../img/wild-atlantic-way-road-trip.png', alt='')
+      
         .col-lg-3.col-sm-4.col-xs-6.image-holder
           .panel.panel-default
             .panel-body
@@ -480,7 +483,7 @@ html
       .footer-right
         p.footer-company-about
           span About the company
-          |  This great website was created to make Europeans bikers' life easier. Big thank you to the beautiful ms.IDon't, fabolous Lisa and the lovely Xuan!
+          |  This great website was created to make Europeans bikers' life easier. Big thank you to the beautiful Ms.T, fabolous Lisa and the lovely Xuan!
         .footer-icons
           a(href='#')
             i.fa.fa-facebook

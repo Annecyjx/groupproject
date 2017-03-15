@@ -1,3 +1,7 @@
+body {
+    font-family: 'Chonburi', cursive;
+}
+
 /* Full-width input fields */
 input[type=text], input[type=password] {
     width: 100%;
@@ -268,6 +272,7 @@ img{
 
     padding: 55px 50px;
     margin-top: 80px;
+    font-family: 'Chonburi';
 }
 
 .footer-distributed .footer-left,
