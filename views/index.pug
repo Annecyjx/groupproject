@@ -9,6 +9,7 @@ html
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
     link(type='text/css' rel='stylesheet', href='/../css/style.css')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    script(type='text/javascript', src='/../js/jquery-3.1.1.js')
 
   body(style='padding: 0px; margin: 0px')
     button#test(onclick="document.getElementById('id01').style.display='block'", style='width:auto;') Sign Up
@@ -104,12 +105,31 @@ html
 
   
 
-    div(name='panel2', style='height: 100%; background-color: #bdbdbd; ')
+    div#picdiv(name='panel2', style='height: 100%; background-color: #bdbdbd; ')
 
       h1(style='color: #424242; padding: 0px; margin: 0px' center) RESULT
       br
       //- .container
       //- .mt100
+      section.row
+        .col-lg-3.col-sm-4.col-xs-6.image-holder
+          .panel.panel-default
+            .panel-body
+              a.zoom(href='#', data-toggle='modal', data-target='#lightbox1' )
+                img(src='/../img/wild-atlantic-way-road-trip.png', alt='...', class='Ireland')
+                span.overlay.modal-backdrop.fade.in
+                  i.glyphicon.glyphicon-fullscreen
+        //- modal 
+        #lightbox1.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+          .modal-dialog
+            .modal-content
+              .modal-header
+                button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                h4#myModalLabel.modal-title Dublin, Ireland
+                h6 Insert additional information about the route in here.
+              .modal-body
+                img(src='/../img/wild-atlantic-way-road-trip.png', alt='', class='Ireland')
+
 
       //- $('#id option[value="0"]').attr('selected', 'selected');
       //- 
@@ -136,7 +156,7 @@ html
           .panel.panel-default
             .panel-body
               a.zoom(href='#', data-toggle='modal', data-target='#lightbox2' )
-                img(src='/../img/alps03.jpg', alt='...')
+                img(src='/../img/alps03.jpg', alt='...', class='Germany')
                 span.overlay.modal-backdrop.fade.in
                   i.glyphicon.glyphicon-fullscreen
         #lightbox2.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
@@ -148,13 +168,13 @@ html
                 h6 Insert additional information about the route in Germany.
 
               .modal-body
-                img(src='/../img/alps03.jpg', alt='')
+                img(src='/../img/alps03.jpg', alt='', class='Germany')
 
         .col-lg-3.col-sm-4.col-xs-6.image-holder
           .panel.panel-default
             .panel-body
               a.zoom(href='#', data-toggle='modal', data-target='#lightbox3' )
-                img(src='/../img/norway.jpg', alt='...')
+                img(src='/../img/norway.jpg', alt='...', class='Norway')
                 span.overlay.modal-backdrop.fade.in
                   i.glyphicon.glyphicon-fullscreen
         #lightbox3.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
@@ -165,13 +185,13 @@ html
                 h4#myModalLabel.modal-title Skei to Haltdalen, Norway
                 h6 Insert additional information about the route.
               .modal-body
-                img(src='/../img/norway.jpg', alt='')
+                img(src='/../img/norway.jpg', alt='', class='Norway')
 
         .col-lg-3.col-sm-4.col-xs-6.image-holder
           .panel.panel-default
             .panel-body
               a.zoom(href='#', data-toggle='modal', data-target='#lightbox4' )
-                img(src='/../img/pexels-photo-27618.jpg', alt='...')
+                img(src='/../img/pexels-photo-27618.jpg', alt='...', class='Spain')
                 span.overlay.modal-backdrop.fade.in
                   i.glyphicon.glyphicon-fullscreen
         #lightbox4.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
@@ -182,7 +202,7 @@ html
                 h4#myModalLabel.modal-title A Coruña to Montjoi, Spain
                 h6 Insert additional information about the route.
               .modal-body
-                img(src='/../img/pexels-photo-27618.jpg', alt='')
+                img(src='/../img/pexels-photo-27618.jpg', alt='', class='Spain')
 
       .container
       .mt100
@@ -191,7 +211,7 @@ html
           .panel.panel-default
             .panel-body
               a.zoom(href='#', data-toggle='modal', data-target='#lightbox5' )
-                img(src='/../img/italian-landscape-mountains-nature.jpg', alt='...')
+                img(src='/../img/italian-landscape-mountains-nature.jpg', alt='...', class='Italy')
                 span.overlay.modal-backdrop.fade.in
                   i.glyphicon.glyphicon-fullscreen
         #lightbox5.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
@@ -202,12 +222,12 @@ html
                 h4#myModalLabel.modal-title Fiastra to Amendolea, Italy
                 h6 Insert additional information about the route.
               .modal-body
-                img(src='/../img/italian-landscape-mountains-nature.jpg', alt='')
+                img(src='/../img/italian-landscape-mountains-nature.jpg', alt='', class='Italy')
         .col-lg-3.col-sm-4.col-xs-6.image-holder
           .panel.panel-default
             .panel-body
               a.zoom(href='#', data-toggle='modal', data-target='#lightbox6' )
-                img(src='/../img/Bosnia road trip 6.jpg', alt='...')
+                img(src='/../img/Bosnia road trip 6.jpg', alt='...', class='Bosnia')
                 span.overlay.modal-backdrop.fade.in
                   i.glyphicon.glyphicon-fullscreen
         #lightbox6.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
@@ -218,12 +238,12 @@ html
                 h4#myModalLabel.modal-title Bosnia Herzogovina
                 h6 Insert additional information about the route.
               .modal-body
-                img(src='/../img/Bosnia road trip 6.jpg', alt='')
+                img(src='/../img/Bosnia road trip 6.jpg', alt='', class='Bosnia')
         .col-lg-3.col-sm-4.col-xs-6.image-holder
           .panel.panel-default
             .panel-body
               a.zoom(href='#', data-toggle='modal', data-target='#lightbox7' )
-                img(src='/../img/romania.jpeg', alt='...')
+                img(src='/../img/romania.jpeg', alt='...', class='Romania')
                 span.overlay.modal-backdrop.fade.in
                   i.glyphicon.glyphicon-fullscreen
         #lightbox7.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
@@ -234,12 +254,12 @@ html
                 h4#myModalLabel.modal-title Romania
                 h6 Insert additional information about the route.
               .modal-body
-                img(src='/../img/romania.jpeg', alt='')
+                img(src='/../img/romania.jpeg', alt='', class='Romania')
         .col-lg-3.col-sm-4.col-xs-6.image-holder
           .panel.panel-default
             .panel-body
               a.zoom(href='#', data-toggle='modal', data-target='#lightbox8' )
-                img(src='/../img/austria.jpeg', alt='...')
+                img(src='/../img/austria.jpeg', alt='...', class='Austria')
                 span.overlay.modal-backdrop.fade.in
                   i.glyphicon.glyphicon-fullscreen
         #lightbox8.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
@@ -250,7 +270,108 @@ html
                 h4#myModalLabel.modal-title Austria
                 h6 Insert additional information about the route.
               .modal-body
-                img(src='/../img/austria.jpeg', alt='')
+                img(src='/../img/austria.jpeg', alt='', class='Austria')
+
+
+      script.
+        $(document).ready(function(){
+          $('#selectbar').change(function(event){
+            console.log('event.currentTarget.value is:')
+            console.log(event.currentTarget.value)
+            $.post('/',{value:event.currentTarget.value}, function(res,status){
+            if(event.currentTarget.value=='all'){
+              $('.Germany').fadeTo(1000,1)
+              $('.Norway').fadeTo(1000,1)
+              $('.Romania').fadeTo(1000,1)
+              $('.Bosnia').fadeTo(1000,1)
+              $('.Italy').fadeTo(1000,1)
+              $('.Ireland').fadeTo(1000,1)
+              $('.Spain').fadeTo(1000,1)
+              $('.Austria').fadeTo(1000,1)
+            }
+            if(event.currentTarget.value=='Germany'){
+              $('.Germany').fadeTo(1000,1)
+              $('.Norway').fadeTo(1000,0.5)
+              $('.Romania').fadeTo(1000,0.5)
+              $('.Bosnia').fadeTo(1000,0.5)
+              $('.Italy').fadeTo(1000,0.5)
+              $('.Ireland').fadeTo(1000,0.5)
+              $('.Spain').fadeTo(1000,0.5)
+              $('.Austria').fadeTo(1000,0.5)
+            }
+            if(event.currentTarget.value=='Norway'){
+              $('.Norway').fadeTo(1000,1)
+              $('.Germany').fadeTo(1000,0.5)
+              $('.Romania').fadeTo(1000,0.5)
+              $('.Bosnia').fadeTo(1000,0.5)
+              $('.Italy').fadeTo(1000,0.5)
+              $('.Ireland').fadeTo(1000,0.5)
+              $('.Spain').fadeTo(1000,0.5)
+              $('.Austria').fadeTo(1000,0.5)
+            }
+             if(event.currentTarget.value=='Romania'){
+              $('.Romania').fadeTo(1000,1)
+              $('.Germany').fadeTo(1000,0.5)
+              $('.Norway').fadeTo(1000,0.5)
+              $('.Bosnia').fadeTo(1000,0.5)
+              $('.Italy').fadeTo(1000,0.5)
+              $('.Ireland').fadeTo(1000,0.5)
+              $('.Spain').fadeTo(1000,0.5)
+              $('.Austria').fadeTo(1000,0.5)
+            }
+            if(event.currentTarget.value=='Bosnia and Herzegovina'){
+              $('.Bosnia').fadeTo(1000,1)
+              $('.Germany').fadeTo(1000,0.5)
+              $('.Norway').fadeTo(1000,0.5)
+              $('.Romania').fadeTo(1000,0.5)
+              $('.Italy').fadeTo(1000,0.5)
+              $('.Ireland').fadeTo(1000,0.5)
+              $('.Spain').fadeTo(1000,0.5)
+              $('.Austria').fadeTo(1000,0.5)
+            }
+              if(event.currentTarget.value=='Italy'){
+              $('.Italy').fadeTo(1000,1)
+              $('.Germany').fadeTo(1000,0.5)
+              $('.Norway').fadeTo(1000,0.5)
+              $('.Romania').fadeTo(1000,0.5)
+              $('.Bosnia').fadeTo(1000,0.5)
+              $('.Ireland').fadeTo(1000,0.5)
+              $('.Spain').fadeTo(1000,0.5)
+              $('.Austria').fadeTo(1000,0.5)
+            }
+              if(event.currentTarget.value=='Ireland'){
+              $('.Ireland').fadeTo(1000,1)
+              $('.Germany').fadeTo(1000,0.5)
+              $('.Norway').fadeTo(1000,0.5)
+              $('.Romania').fadeTo(1000,0.5)
+              $('.Bosnia').fadeTo(1000,0.5)
+              $('.Italy').fadeTo(1000,0.5)
+              $('.Spain').fadeTo(1000,0.5)
+              $('.Austria').fadeTo(1000,0.5)
+            }
+              if(event.currentTarget.value=='Spain'){
+              $('.Spain').fadeTo(1000,1)
+              $('.Germany').fadeTo(1000,0.5)
+              $('.Norway').fadeTo(1000,0.5)
+              $('.Romania').fadeTo(1000,0.5)
+              $('.Italy').fadeTo(1000,0.5)
+              $('.Bosnia').fadeTo(1000,0.5)
+              $('.Ireland').fadeTo(1000,0.5)
+              $('.Austria').fadeTo(1000,0.5)
+            }
+              if(event.currentTarget.value=='Austria'){
+              $('.Austria').fadeTo(1000,1)
+              $('.Germany').fadeTo(1000,0.5)
+              $('.Norway').fadeTo(1000,0.5)
+              $('.Romania').fadeTo(1000,0.5)
+              $('.Italy').fadeTo(1000,0.5)
+              $('.Bosnia').fadeTo(1000,0.5)
+              $('.Ireland').fadeTo(1000,0.5)
+              $('.Spain').fadeTo(1000,0.5)
+            }
+            })
+          })
+        })
 
 
       //- img#myImg(src='/../img/img_fjords.jpg', alt='Insert here more information on the route and the location of the route. A', width='300', height='200')
@@ -261,8 +382,6 @@ html
       //- #caption
       //- br
 
-
-    
 
       h1(style='color: #424242; padding: 0px; margin: 0px') RESULT
       div#results
