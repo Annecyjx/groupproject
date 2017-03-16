@@ -92,281 +92,253 @@ html
                 option(value='Romania') Romania
                 option(value='Austria') Austria
 
-
-    
-
-  
-
     div#picdiv.result
-
-
       #result RESULT
       br
+
+      //- .container
+
+      each rating in ratings
+        .col-lg-3.col-sm-4.col-xs-6.image-holder
+          .panel.panel-default
+            .panel-body
+              a.zoom(href='#', data-toggle='modal', data-target='#lightbox'+rating.road.id )
+                img(src='/../img/photo'+rating.road.id+'.png', alt='...', class=rating.road.country)
+                span.overlay.modal-backdrop.fade.in
+                  i.glyphicon.glyphicon-fullscreen
+          h1 #{rating.road.routename}
+          h4 #{rating.road.country}
+        //- modal 
+        .modal.fade(id="lightbox"+rating.road.id, tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+          .modal-dialog
+            .modal-content
+              .modal-header
+                button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                h4#myModalLabel.modal-title #{rating.road.routename}
+                h6 #{rating.road.description}
+                p(id="averageRating"+rating.road.id) #{rating.rating}
+                if user 
+                  form(class="sendFormRating", data-route_id=rating.road.id)
+                    select(id="selectRating"+rating.road.id, name='addRating')
+                      option(value='undefined') Give a rating
+                      option(value='1') Hell (1)
+                      option(value='2') Bad (2)
+                      option(value='3') Meh (3)
+                      option(value='4') Good (4)
+                      option(value='5') Heaven (5)
+                    input(class='sendRating' type="submit" value="Go")
+              .modal-body
+                img(src='/../img/photo'+rating.road.id+'.png', alt='', class=rating.road.country)
+    
+      //- .col-lg-3.col-sm-4.col-xs-6.image-holder
+      //-   .panel.panel-default
+      //-     .panel-body
+      //-       a.zoom(href='#', data-toggle='modal', data-target='#lightbox2' )
+      //-         img(src='/../img/alps03.jpg', alt='...', class='Germany')
+      //-         span.overlay.modal-backdrop.fade.in
+      //-           i.glyphicon.glyphicon-fullscreen
+      //-   h1 #{ratings[0].road.routename}
+      //-   h4 #{ratings[0].road.country}
+      //- #lightbox2.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+      //-   .modal-dialog
+      //-     .modal-content
+      //-       .modal-header
+      //-         button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
+      //-         h4#myModalLabel.modal-title #{ratings[0].road.routename}
+      //-         h6 #{ratings[0].road.description}
+      //-         p(id="averageRating"+ratings[0].road.id) #{ratings[0].rating}
+      //-         if user 
+      //-           form(class="sendFormRating", data-route_id=ratings[0].road.id)
+      //-             select(id="selectRating"+ratings[0].road.id, name='addRating')
+      //-               option(value='undefined') Give a rating
+      //-               option(value='1') Hell (1)
+      //-               option(value='2') Bad (2)
+      //-               option(value='3') Meh (3)
+      //-               option(value='4') Good (4)
+      //-               option(value='5') Heaven (5)
+      //-             input(class='sendRating' type="submit" value="Go")
+      //-       .modal-body
+      //-         img(src='/../img/alps03.jpg', alt='', class='Germany')
+
+      //- .col-lg-3.col-sm-4.col-xs-6.image-holder
+      //-   .panel.panel-default
+      //-     .panel-body
+      //-       a.zoom(href='#', data-toggle='modal', data-target='#lightbox3' )
+      //-         img(src='/../img/norway.jpg', alt='...', class='Norway')
+      //-         span.overlay.modal-backdrop.fade.in
+      //-           i.glyphicon.glyphicon-fullscreen
+      //-   h1 #{ratings[3].road.routename}
+      //-   h4 #{ratings[3].road.country}
+      //- #lightbox3.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+      //-   .modal-dialog
+      //-     .modal-content
+      //-       .modal-header
+      //-         button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
+      //-         h4#myModalLabel.modal-title #{ratings[3].road.routename}
+      //-         h6 #{ratings[3].road.description}
+      //-         p(id="averageRating"+ratings[3].road.id) #{ratings[3].rating}
+      //-         if user 
+      //-           form(class="sendFormRating", data-route_id=ratings[3].road.id)
+      //-             select(id="selectRating"+ratings[3].road.id, name='addRating')
+      //-               option(value='undefined') Give a rating
+      //-               option(value='1') Hell (1)
+      //-               option(value='2') Bad (2)
+      //-               option(value='3') Meh (3)
+      //-               option(value='4') Good (4)
+      //-               option(value='5') Heaven (5)
+      //-             input(class='sendRating' type="submit" value="Go")
+      //-       .modal-body
+      //-         img(src='/../img/norway.jpg', alt='', class='Norway')
+
+      //- .col-lg-3.col-sm-4.col-xs-6.image-holder
+      //-   .panel.panel-default
+      //-     .panel-body
+      //-       a.zoom(href='#', data-toggle='modal', data-target='#lightbox4' )
+      //-         img(src='/../img/pexels-photo-27618.jpg', alt='...', class='Spain')
+      //-         span.overlay.modal-backdrop.fade.in
+      //-           i.glyphicon.glyphicon-fullscreen
+      //-   h1 #{ratings[4].road.routename}
+      //-   h4 #{ratings[4].road.country}
+      //- #lightbox4.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+      //-   .modal-dialog
+      //-     .modal-content
+      //-       .modal-header
+      //-         button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
+      //-         h4#myModalLabel.modal-title #{ratings[4].road.routename}
+      //-         h6 #{ratings[4].road.description}
+      //-         p(id="averageRating"+ratings[4].road.id) #{ratings[4].rating}
+      //-         if user 
+      //-           form(class="sendFormRating", data-route_id=ratings[4].road.id)
+      //-             select(id="selectRating"+ratings[4].road.id, name='addRating')
+      //-               option(value='undefined') Give a rating
+      //-               option(value='1') Hell (1)
+      //-               option(value='2') Bad (2)
+      //-               option(value='3') Meh (3)
+      //-               option(value='4') Good (4)
+      //-               option(value='5') Heaven (5)
+      //-             input(class='sendRating' type="submit" value="Go")
+      //-       .modal-body
+      //-         img(src='/../img/pexels-photo-27618.jpg', alt='', class='Spain')
+
       //- .container
       //- .mt100
-
-      section.row
-        .col-lg-3.col-sm-4.col-xs-6.image-holder
-          .panel.panel-default
-            .panel-body
-              a.zoom(href='#', data-toggle='modal', data-target='#lightbox1' )
-                img(src='/../img/wild-atlantic-way-road-trip.png', alt='...', class="Ireland")
-                span.overlay.modal-backdrop.fade.in
-                  i.glyphicon.glyphicon-fullscreen
-        //- modal 
-        #lightbox1.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
-          .modal-dialog
-            .modal-content
-              .modal-header
-                button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
-                h4#myModalLabel.modal-title Dublin, Ireland
-                h6 Insert additional information about the route in here.
-              .modal-body
-                img(src='/../img/wild-atlantic-way-road-trip.png', alt='', class="Ireland")
       
-        .col-lg-3.col-sm-4.col-xs-6.image-holder
-          .panel.panel-default
-            .panel-body
-              a.zoom(href='#', data-toggle='modal', data-target='#lightbox2' )
-                img(src='/../img/alps03.jpg', alt='...', class='Germany')
-                span.overlay.modal-backdrop.fade.in
-                  i.glyphicon.glyphicon-fullscreen
-        #lightbox2.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
-          .modal-dialog
-            .modal-content
-              .modal-header
-                button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
-                h4#myModalLabel.modal-title Stuttgart, Germany
-                h6 Insert additional information about the route in Germany.
-
-              .modal-body
-                img(src='/../img/alps03.jpg', alt='', class='Germany')
-
-        .col-lg-3.col-sm-4.col-xs-6.image-holder
-          .panel.panel-default
-            .panel-body
-              a.zoom(href='#', data-toggle='modal', data-target='#lightbox3' )
-                img(src='/../img/norway.jpg', alt='...', class='Norway')
-                span.overlay.modal-backdrop.fade.in
-                  i.glyphicon.glyphicon-fullscreen
-        #lightbox3.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
-          .modal-dialog
-            .modal-content
-              .modal-header
-                button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
-                h4#myModalLabel.modal-title Skei to Haltdalen, Norway
-                h6 Insert additional information about the route.
-              .modal-body
-                img(src='/../img/norway.jpg', alt='', class='Norway')
-
-        .col-lg-3.col-sm-4.col-xs-6.image-holder
-          .panel.panel-default
-            .panel-body
-              a.zoom(href='#', data-toggle='modal', data-target='#lightbox4' )
-                img(src='/../img/pexels-photo-27618.jpg', alt='...', class='Spain')
-                span.overlay.modal-backdrop.fade.in
-                  i.glyphicon.glyphicon-fullscreen
-        #lightbox4.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
-          .modal-dialog
-            .modal-content
-              .modal-header
-                button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
-                h4#myModalLabel.modal-title A Coruña to Montjoi, Spain
-                h6 Insert additional information about the route.
-              .modal-body
-                img(src='/../img/pexels-photo-27618.jpg', alt='', class='Spain')
-
-      .container
-      .mt100
-      section.row
-        .col-lg-3.col-sm-4.col-xs-6.image-holder
-          .panel.panel-default
-            .panel-body
-              a.zoom(href='#', data-toggle='modal', data-target='#lightbox5' )
-                img(src='/../img/italian-landscape-mountains-nature.jpg', alt='...', class='Italy')
-                span.overlay.modal-backdrop.fade.in
-                  i.glyphicon.glyphicon-fullscreen
-        #lightbox5.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
-          .modal-dialog
-            .modal-content
-              .modal-header
-                button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
-                h4#myModalLabel.modal-title Fiastra to Amendolea, Italy
-                h6 Insert additional information about the route.
-              .modal-body
-                img(src='/../img/italian-landscape-mountains-nature.jpg', alt='', class='Italy')
-        .col-lg-3.col-sm-4.col-xs-6.image-holder
-          .panel.panel-default
-            .panel-body
-              a.zoom(href='#', data-toggle='modal', data-target='#lightbox6' )
-                img(src='/../img/Bosnia road trip 6.jpg', alt='...', class='Bosnia')
-                span.overlay.modal-backdrop.fade.in
-                  i.glyphicon.glyphicon-fullscreen
-        #lightbox6.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
-          .modal-dialog
-            .modal-content
-              .modal-header
-                button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
-                h4#myModalLabel.modal-title Bosnia Herzogovina
-                h6 Insert additional information about the route.
-              .modal-body
-                img(src='/../img/Bosnia road trip 6.jpg', alt='', class='Bosnia')
-        .col-lg-3.col-sm-4.col-xs-6.image-holder
-          .panel.panel-default
-            .panel-body
-              a.zoom(href='#', data-toggle='modal', data-target='#lightbox7' )
-                img(src='/../img/romania.jpeg', alt='...', class='Romania')
-                span.overlay.modal-backdrop.fade.in
-                  i.glyphicon.glyphicon-fullscreen
-        #lightbox7.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
-          .modal-dialog
-            .modal-content
-              .modal-header
-                button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
-                h4#myModalLabel.modal-title Romania
-                h6 Insert additional information about the route.
-              .modal-body
-                img(src='/../img/romania.jpeg', alt='', class='Romania')
-        .col-lg-3.col-sm-4.col-xs-6.image-holder
-          .panel.panel-default
-            .panel-body
-              a.zoom(href='#', data-toggle='modal', data-target='#lightbox8' )
-                img(src='/../img/austria.jpeg', alt='...', class='Austria')
-                span.overlay.modal-backdrop.fade.in
-                  i.glyphicon.glyphicon-fullscreen
-        #lightbox8.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
-          .modal-dialog
-            .modal-content
-              .modal-header
-                button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
-                h4#myModalLabel.modal-title Austria
-                h6 Insert additional information about the route.
-              .modal-body
-                img(src='/../img/austria.jpeg', alt='', class='Austria')
-
-
-      script.
-        $(document).ready(function(){
-          $('#selectbar').change(function(event){
-            //- console.log('event.currentTarget.value is:')
-            //- console.log(event.currentTarget.value)
-            $.post('/',{value:event.currentTarget.value}, function(res,status){
-            console.log('we are console logging')
-            console.log(res.roads)
-
-            if(event.currentTarget.value=='all'){
-              $('.Germany').fadeTo(1000,1)
-              $('.Norway').fadeTo(1000,1)
-              $('.Romania').fadeTo(1000,1)
-              $('.Bosnia').fadeTo(1000,1)
-              $('.Italy').fadeTo(1000,1)
-              $('.Ireland').fadeTo(1000,1)
-              $('.Spain').fadeTo(1000,1)
-              $('.Austria').fadeTo(1000,1)
-            }
-            if (res.roads[0].country== 'Germany') {
-              $('#picdiv').remove()
-              $('.panel1').after('<div class="resultBeforeGoogle"> <h1>' + res.roads[0].country + ' </h1><h1>' + res.roads[0].routename+ ' </h1></div>')
-              //div wat kleiner maken
-              //.rating
-              //.something else instead of .country
-              }
-
-            if (res.roads[0].country== 'Germany') {
-              $('#picdiv').remove()
-              //$('.panel1').after('<div class="resultBeforeGoogle"> <h1>' + res.roads[0].routename+ ' </h1></div>')
-              //div wat kleiner maken
-              //.rating
-              //.something else instead of .country
-              }
-            //- else {
-            //-   $('.panel2').remove()
-            //-   //- div#picdiv.panel2
-            //-   }
-          //-   if(event.currentTarget.value=='Germany'){
-          //-     $('.Germany').show()
-          //-     $('.Norway').hide()
-          //-     $('.Romania').hide()
-          //-     $('.Bosnia').hide()
-          //-     $('.Italy').hide()
-          //-     $('.Ireland').hide()
-          //-     $('.Spain').hide()
-          //-     $('.Austria').hide()
-          //-   }
-          //-   if(event.currentTarget.value=='Norway'){
-          //-     $('.Norway').fadeTo(1000,1)
-          //-     $('.Germany').fadeTo(1000,0.5)
-          //-     $('.Romania').fadeTo(1000,0.5)
-          //-     $('.Bosnia').fadeTo(1000,0.5)
-          //-     $('.Italy').fadeTo(1000,0.5)
-          //-     $('.Ireland').fadeTo(1000,0.5)
-          //-     $('.Spain').fadeTo(1000,0.5)
-          //-     $('.Austria').fadeTo(1000,0.5)
-          //-   }
-          //-    if(event.currentTarget.value=='Romania'){
-          //-     $('.Romania').fadeTo(1000,1)
-          //-     $('.Germany').fadeTo(1000,0.5)
-          //-     $('.Norway').fadeTo(1000,0.5)
-          //-     $('.Bosnia').fadeTo(1000,0.5)
-          //-     $('.Italy').fadeTo(1000,0.5)
-          //-     $('.Ireland').fadeTo(1000,0.5)
-          //-     $('.Spain').fadeTo(1000,0.5)
-          //-     $('.Austria').fadeTo(1000,0.5)
-          //-   }
-          //-   if(event.currentTarget.value=='Bosnia and Herzegovina'){
-          //-     $('.Bosnia').fadeTo(1000,1)
-          //-     $('.Germany').fadeTo(1000,0.5)
-          //-     $('.Norway').fadeTo(1000,0.5)
-          //-     $('.Romania').fadeTo(1000,0.5)
-          //-     $('.Italy').fadeTo(1000,0.5)
-          //-     $('.Ireland').fadeTo(1000,0.5)
-          //-     $('.Spain').fadeTo(1000,0.5)
-          //-     $('.Austria').fadeTo(1000,0.5)
-          //-   }
-          //-     if(event.currentTarget.value=='Italy'){
-          //-     $('.Italy').fadeTo(1000,1)
-          //-     $('.Germany').fadeTo(1000,0.5)
-          //-     $('.Norway').fadeTo(1000,0.5)
-          //-     $('.Romania').fadeTo(1000,0.5)
-          //-     $('.Bosnia').fadeTo(1000,0.5)
-          //-     $('.Ireland').fadeTo(1000,0.5)
-          //-     $('.Spain').fadeTo(1000,0.5)
-          //-     $('.Austria').fadeTo(1000,0.5)
-          //-   }
-          //-     if(event.currentTarget.value=='Ireland'){
-          //-     $('.Ireland').fadeTo(1000,1)
-          //-     $('.Germany').fadeTo(1000,0.5)
-          //-     $('.Norway').fadeTo(1000,0.5)
-          //-     $('.Romania').fadeTo(1000,0.5)
-          //-     $('.Bosnia').fadeTo(1000,0.5)
-          //-     $('.Italy').fadeTo(1000,0.5)
-          //-     $('.Spain').fadeTo(1000,0.5)
-          //-     $('.Austria').fadeTo(1000,0.5)
-          //-   }
-          //-     if(event.currentTarget.value=='Spain'){
-          //-     $('.Spain').fadeTo(1000,1)
-          //-     $('.Germany').fadeTo(1000,0.5)
-          //-     $('.Norway').fadeTo(1000,0.5)
-          //-     $('.Romania').fadeTo(1000,0.5)
-          //-     $('.Italy').fadeTo(1000,0.5)
-          //-     $('.Bosnia').fadeTo(1000,0.5)
-          //-     $('.Ireland').fadeTo(1000,0.5)
-          //-     $('.Austria').fadeTo(1000,0.5)
-          //-   }
-          //-     if(event.currentTarget.value=='Austria'){
-          //-     $('.Austria').fadeTo(1000,1)
-          //-     $('.Germany').fadeTo(1000,0.5)
-          //-     $('.Norway').fadeTo(1000,0.5)
-          //-     $('.Romania').fadeTo(1000,0.5)
-          //-     $('.Italy').fadeTo(1000,0.5)
-          //-     $('.Bosnia').fadeTo(1000,0.5)
-          //-     $('.Ireland').fadeTo(1000,0.5)
-          //-     $('.Spain').fadeTo(1000,0.5)
-          //-   }
-            })
-          })
-        })
-
+      //- .col-lg-3.col-sm-4.col-xs-6.image-holder
+      //-   .panel.panel-default
+      //-     .panel-body
+      //-       a.zoom(href='#', data-toggle='modal', data-target='#lightbox5' )
+      //-         img(src='/../img/italian-landscape-mountains-nature.jpg', alt='...', class='Italy')
+      //-         span.overlay.modal-backdrop.fade.in
+      //-           i.glyphicon.glyphicon-fullscreen
+      //-   h1 #{ratings[5].road.routename}
+      //-   h4 #{ratings[5].road.country}
+      //- #lightbox5.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+      //-   .modal-dialog
+      //-     .modal-content
+      //-       .modal-header
+      //-         button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
+      //-         h4#myModalLabel.modal-title #{ratings[5].road.routename}
+      //-         h6 #{ratings[5].road.description}
+      //-         p(id="averageRating"+ratings[5].road.id) #{ratings[5].rating}
+      //-         if user 
+      //-           form(class="sendFormRating", data-route_id=ratings[5].road.id)
+      //-             select(id="selectRating"+ratings[5].road.id, name='addRating')
+      //-               option(value='undefined') Give a rating
+      //-               option(value='1') Hell (1)
+      //-               option(value='2') Bad (2)
+      //-               option(value='3') Meh (3)
+      //-               option(value='4') Good (4)
+      //-               option(value='5') Heaven (5)
+      //-             input(class='sendRating' type="submit" value="Go")
+      //-       .modal-body
+      //-         img(src='/../img/italian-landscape-mountains-nature.jpg', alt='', class='Italy')
+      //- .col-lg-3.col-sm-4.col-xs-6.image-holder
+      //-   .panel.panel-default
+      //-     .panel-body
+      //-       a.zoom(href='#', data-toggle='modal', data-target='#lightbox6' )
+      //-         img(src='/../img/Bosnia road trip 6.jpg', alt='...', class='Bosnia')
+      //-         span.overlay.modal-backdrop.fade.in
+      //-           i.glyphicon.glyphicon-fullscreen
+      //-   h1 #{ratings[2].road.routename}
+      //-   h4 #{ratings[2].road.country}
+      //- #lightbox6.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+      //-   .modal-dialog
+      //-     .modal-content
+      //-       .modal-header
+      //-         button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
+      //-         h4#myModalLabel.modal-title #{ratings[2].road.routename}
+      //-         h6 #{ratings[2].road.description}
+      //-         p(id="averageRating"+ratings[2].road.id) #{ratings[2].rating}
+      //-         if user 
+      //-           form(class="sendFormRating", data-route_id=ratings[2].road.id)
+      //-             select(id="selectRating"+ratings[2].road.id, name='addRating')
+      //-               option(value='undefined') Give a rating
+      //-               option(value='1') Hell (1)
+      //-               option(value='2') Bad (2)
+      //-               option(value='3') Meh (3)
+      //-               option(value='4') Good (4)
+      //-               option(value='5') Heaven (5)
+      //-             input(class='sendRating' type="submit" value="Go")
+      //-       .modal-body
+      //-         img(src='/../img/Bosnia road trip 6.jpg', alt='', class='Bosnia')
+      //- .col-lg-3.col-sm-4.col-xs-6.image-holder
+      //-   .panel.panel-default
+      //-     .panel-body
+      //-       a.zoom(href='#', data-toggle='modal', data-target='#lightbox7' )
+      //-         img(src='/../img/romania.jpeg', alt='...', class='Romania')
+      //-         span.overlay.modal-backdrop.fade.in
+      //-           i.glyphicon.glyphicon-fullscreen
+      //-   h1 #{ratings[6].road.routename}
+      //-   h4 #{ratings[6].road.country}
+      //- #lightbox7.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+      //-   .modal-dialog
+      //-     .modal-content
+      //-       .modal-header
+      //-         button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
+      //-         h4#myModalLabel.modal-title #{ratings[6].road.routename}
+      //-         h6 #{ratings[6].road.description}
+      //-         p(id="averageRating"+ratings[6].road.id) #{ratings[6].rating}
+      //-         if user 
+      //-           form(class="sendFormRating", data-route_id=ratings[6].road.id)
+      //-             select(id="selectRating"+ratings[6].road.id, name='addRating')
+      //-               option(value='undefined') Give a rating
+      //-               option(value='1') Hell (1)
+      //-               option(value='2') Bad (2)
+      //-               option(value='3') Meh (3)
+      //-               option(value='4') Good (4)
+      //-               option(value='5') Heaven (5)
+      //-             input(class='sendRating' type="submit" value="Go")
+      //-       .modal-body
+      //-         img(src='/../img/romania.jpeg', alt='', class='Romania')
+      //- .col-lg-3.col-sm-4.col-xs-6.image-holder
+      //-   .panel.panel-default
+      //-     .panel-body
+      //-       a.zoom(href='#', data-toggle='modal', data-target='#lightbox8' )
+      //-         img(src='/../img/austria.jpeg', alt='...', class='Austria')
+      //-         span.overlay.modal-backdrop.fade.in
+      //-           i.glyphicon.glyphicon-fullscreen
+      //-   h1 #{ratings[7].road.routename}
+      //-   h4 #{ratings[7].road.country}
+      //- #lightbox8.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+      //-   .modal-dialog
+      //-     .modal-content
+      //-       .modal-header
+      //-         button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
+      //-         h4#myModalLabel.modal-title #{ratings[7].road.routename}
+      //-         h6 #{ratings[7].road.description}
+      //-         p(id="averageRating"+ratings[7].road.id) #{ratings[7].rating}
+      //-         if user 
+      //-           form(class="sendFormRating", data-route_id=ratings[7].road.id)
+      //-             select(id="selectRating"+ratings[7].road.id, name='addRating')
+      //-               option(value='undefined') Give a rating
+      //-               option(value='1') Hell (1)
+      //-               option(value='2') Bad (2)
+      //-               option(value='3') Meh (3)
+      //-               option(value='4') Good (4)
+      //-               option(value='5') Heaven (5)
+      //-             input(class='sendRating' type="submit" value="Go")
+      //-       .modal-body
+      //-         img(src='/../img/austria.jpeg', alt='', class='Austria')
 
       //- img#myImg(src='/../img/img_fjords.jpg', alt='Insert here more information on the route and the location of the route. A', width='300', height='200')
       //- #myModal.modalbackground
@@ -375,29 +347,6 @@ html
       //- img#img01.modal-content-image
       //- #caption
       //- br
-
-
-
-      div#results
-        each road in roads
-          .allResults
-            h1 #{road.routename}
-            h3 #{road.country}
-            p #{road.description}
-
-      script.
-        $(document).ready(function(){
-          $('#selectbar').change(function(event){
-            $.post('/', {value:event.currentTarget.value}, function(res, status){
-              $('.allResults').remove()
-              for(var i = 0; i < res.roads.length; i++){
-                $('#results').append('<div class="allResults"><h1>' + res.roads[i].routename + '</h1>' +
-                  '<h3>' + res.roads[i].country + '</h3>' +
-                  '<p>' + res.roads[i].description + '</p></div>')
-              }
-            })
-          })
-        })
 
     div.panelGooglemaps#googleMap
       |  &nbsp;     
@@ -470,7 +419,6 @@ html
           };
           document.getElementById('selectbar').addEventListener('change', onChangeHandler);
         }
-
 
         function calculateAndDisplayRoute(directionsService, directionsDisplay){
           console.log('calculateAndDisplayRoute')
@@ -554,8 +502,6 @@ html
             }
           })
         }
-
-
 
     button#myBtn(onclick='topFunction()', title='Go to top') Top
 
@@ -642,7 +588,6 @@ html
       })
     })
 
-  script.
     $('#signupForm').submit(function(event) {
       event.preventDefault();
       $('.tempMes').remove();
@@ -664,6 +609,66 @@ html
           }
       })
     })
+
+    var gebruiker = #{user}
+    console.log(gebruiker)
+
+    $(document).ready(function(){
+      $('#selectbar').change(function(event){
+        console.log('console.logging value')
+        console.log(event.currentTarget.value)
+        $.post('/specroute', {value:event.currentTarget.value}, function(res, status){
+          console.log('console.logging result')
+          console.log(res.roads.length)
+          //- console.log(res.ratings[0].rating)
+          $('.allResults').remove()
+          $('.sendFormRating').remove()
+          for(var i = 0; i < res.roads.length; i++){
+            var ratingThis = res.roads[i].id
+            $('#results').append('<div class="allResults", data-route_id='+ res.roads[i].id+'><h1>' + res.roads[i].routename + '</h1>' +
+              '<h4>' + res.roads[i].country + '</h4>' +
+              '<p>' + res.roads[i].description + '</p>' +
+              '<p id="averageRating'+ratingThis+'">' + res.ratings[i].rating+'</p></div>')
+            if (gebruiker == undefined) {
+              var ratingThis = res.roads[i].id
+              $('#results').append('<form class="sendFormRating" data-route_id='+ratingThis+'>' +
+                '<select id="selectRating'+ratingThis+'" name="addRating">' +
+                  '<option value="undefined"> Give a rating</option>' +
+                  '<option value="1"> Hell (1)</option>' +
+                  '<option value="2"> Bad (2)</option>' +
+                  '<option value="3"> Meh (3)</option>' +
+                  '<option value="4"> Good (4)</option>' +
+                  '<option value="5"> Heaven (5)</option></select>' +
+                '<input class="sendRating" type="submit" value="Go"></form>')
+            } else {
+              $('#results').append('<p>Please log in to give a rating :)</p>')
+            }
+          }
+        })
+      })
+    })
+
+    $(document).on("submit", '.sendFormRating', function(event){
+      var selectedForms = $(event.currentTarget)
+      var routeId = $(selectedForms[0]).data('route_id')
+      //- var thisRoad = #{ratings[0]}
+      event.preventDefault();
+      //- //console.log(document.getElementById('selectRating').value)
+      var id = $($(selectedForms[0]).children()[0]).attr('id')
+      var data = {
+        thisRoad: routeId,
+        addRating: $('#'+id).val()
+      }
+      //console.log('whatsup?')
+      //- console.log()
+      $.post('/rating', data, function(res, status){
+        //- console.log('logging result');
+        console.log(res.roadId);
+        console.log(res.average)
+        $('#averageRating'+res.roadId).html("<p id='averageRating'+"+res.roadId+">" + res.average + "</p>")
+      })
+    })
+
 
 
   script(src='https://code.jquery.com/jquery.js')
