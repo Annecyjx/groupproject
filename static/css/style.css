@@ -12,7 +12,8 @@ body {
 
 .result {
 /*    height: 100%; 
-*/    background-color: #bdbdbd;
+*/    /*background-color: #bdbdbd;*/
+    padding-top: 10px;
 }
 
 
@@ -193,8 +194,8 @@ img.avatar {
 }
 
 .image-holder{
-    height: 200px;
-}
+/*    height: 200px;
+*/}
 
 
 /*Body of the Panel when it expands*/
@@ -503,8 +504,15 @@ img{
     font-size: : 250%;
 }
 
+h1 {
+    margin: 0;
+    text-align: center;
+    font-size: 10px;
+}
 h4 {
     text-align: center;
+    font-size: 15px;
+    margin-bottom: : 10px;
 }
 
 h6 {
@@ -514,6 +522,14 @@ h6 {
 img#logo {
    max-height: 66px;
    max-width: 200px;
+    position: relative;
+    left: -42%;
+}
+
+img#logobottom {
+   max-height: 66px;
+   max-width: 200px;
+
 }
 
 .welcome {
