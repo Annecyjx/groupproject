@@ -11,8 +11,8 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     script(type='text/javascript', src='/../js/jquery-3.1.1.js')
 
-  body(style='padding: 0px; margin: 0px')
-    button#test(onclick="document.getElementById('id01').style.display='block'", style='width:auto;') Sign Up
+  body
+    button#signup(onclick="document.getElementById('id01').style.display='block'") Sign Up
     #id01.modal
       form.modal-content.animate(action='/')
         span.close(onclick="document.getElementById('id01').style.display='none'", title='Close Modal') &times;
@@ -43,7 +43,7 @@ html
             |  
             button.signupbtn(type='submit') Sign Up
 
-    button.test#test(onclick="document.getElementById('id02').style.display='block'", style='width:auto;') Login
+    button.test#login(onclick="document.getElementById('id02').style.display='block'") Login
     #id02.modal
       form.modal-content.animate(action='/')
         .imgcontainer
@@ -68,7 +68,7 @@ html
           span.psw
             | Forgot 
             a(href='#') password?
-    div(name='panel1', style='height: 100%; background: url("/../img/sunset-summer-motorcycle.jpg") no-repeat center center')
+    div.panel1
       //- nav
       //-   .nav-wrapper(style='background-color: #bdbdbd')
       //-     a.brand-logo(href='#' style='padding: 0 0 0 15%') Logo
@@ -80,12 +80,13 @@ html
 
       img#logo(src='/../img/bre.png', alt='')
       .container
-        h1(style='color: white; padding: 0px; margin: 20%; text-align: center') Biker Roads Europe
+        h1 Biker Roads Europe
         .valign-wrapper
             .input-field.col.m6
-              b Select your country route:
+              //- b Select your country route:
               select#selectbar
-                option(value='all') All Countries
+                option(value='all') All countries:
+                //- option(value='all') All Countries
                 option(value='Germany') Germany
                 option(value='Ireland') Ireland
                 option(value='Bosnia and Herzegovina') Bosnia and Herzegovina
@@ -105,18 +106,19 @@ html
 
   
 
-    div#picdiv(name='panel2', style='height: 100%; background-color: #bdbdbd; ')
+    div#picdiv.panel2
 
-      h1(style='color: #424242; padding: 0px; margin: 0px' center) RESULT
+      #result RESULT
       br
       //- .container
       //- .mt100
+
       section.row
         .col-lg-3.col-sm-4.col-xs-6.image-holder
           .panel.panel-default
             .panel-body
               a.zoom(href='#', data-toggle='modal', data-target='#lightbox1' )
-                img(src='/../img/wild-atlantic-way-road-trip.png', alt='...', class='Ireland')
+                img(src='/../img/wild-atlantic-way-road-trip.png', alt='...', class="Ireland")
                 span.overlay.modal-backdrop.fade.in
                   i.glyphicon.glyphicon-fullscreen
         //- modal 
@@ -128,29 +130,7 @@ html
                 h4#myModalLabel.modal-title Dublin, Ireland
                 h6 Insert additional information about the route in here.
               .modal-body
-                img(src='/../img/wild-atlantic-way-road-trip.png', alt='', class='Ireland')
-
-
-      //- $('#id option[value="0"]').attr('selected', 'selected');
-      //- 
-      section.row
-          .col-lg-3.col-sm-4.col-xs-6.image-holder
-            .panel.panel-default
-              .panel-body
-                a.zoom(href='#', data-toggle='modal', data-target='#lightbox1' )
-                  img(src='/../img/wild-atlantic-way-road-trip.png', alt='...')
-                  span.overlay.modal-backdrop.fade.in
-                    i.glyphicon.glyphicon-fullscreen
-          //- modal 
-          #lightbox1.modal.fade(tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
-            .modal-dialog
-              .modal-content
-                .modal-header
-                  button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
-                  h4#myModalLabel.modal-title Dublin, Ireland
-                  h6 Insert additional information about the route in here.
-                .modal-body
-                  img(src='/../img/wild-atlantic-way-road-trip.png', alt='')
+                img(src='/../img/wild-atlantic-way-road-trip.png', alt='', class="Ireland")
       
         .col-lg-3.col-sm-4.col-xs-6.image-holder
           .panel.panel-default
@@ -276,9 +256,12 @@ html
       script.
         $(document).ready(function(){
           $('#selectbar').change(function(event){
-            console.log('event.currentTarget.value is:')
-            console.log(event.currentTarget.value)
+            //- console.log('event.currentTarget.value is:')
+            //- console.log(event.currentTarget.value)
             $.post('/',{value:event.currentTarget.value}, function(res,status){
+            console.log('we are console logging')
+            console.log(res.roads)
+
             if(event.currentTarget.value=='all'){
               $('.Germany').fadeTo(1000,1)
               $('.Norway').fadeTo(1000,1)
@@ -289,86 +272,105 @@ html
               $('.Spain').fadeTo(1000,1)
               $('.Austria').fadeTo(1000,1)
             }
-            if(event.currentTarget.value=='Germany'){
-              $('.Germany').fadeTo(1000,1)
-              $('.Norway').fadeTo(1000,0.5)
-              $('.Romania').fadeTo(1000,0.5)
-              $('.Bosnia').fadeTo(1000,0.5)
-              $('.Italy').fadeTo(1000,0.5)
-              $('.Ireland').fadeTo(1000,0.5)
-              $('.Spain').fadeTo(1000,0.5)
-              $('.Austria').fadeTo(1000,0.5)
-            }
-            if(event.currentTarget.value=='Norway'){
-              $('.Norway').fadeTo(1000,1)
-              $('.Germany').fadeTo(1000,0.5)
-              $('.Romania').fadeTo(1000,0.5)
-              $('.Bosnia').fadeTo(1000,0.5)
-              $('.Italy').fadeTo(1000,0.5)
-              $('.Ireland').fadeTo(1000,0.5)
-              $('.Spain').fadeTo(1000,0.5)
-              $('.Austria').fadeTo(1000,0.5)
-            }
-             if(event.currentTarget.value=='Romania'){
-              $('.Romania').fadeTo(1000,1)
-              $('.Germany').fadeTo(1000,0.5)
-              $('.Norway').fadeTo(1000,0.5)
-              $('.Bosnia').fadeTo(1000,0.5)
-              $('.Italy').fadeTo(1000,0.5)
-              $('.Ireland').fadeTo(1000,0.5)
-              $('.Spain').fadeTo(1000,0.5)
-              $('.Austria').fadeTo(1000,0.5)
-            }
-            if(event.currentTarget.value=='Bosnia and Herzegovina'){
-              $('.Bosnia').fadeTo(1000,1)
-              $('.Germany').fadeTo(1000,0.5)
-              $('.Norway').fadeTo(1000,0.5)
-              $('.Romania').fadeTo(1000,0.5)
-              $('.Italy').fadeTo(1000,0.5)
-              $('.Ireland').fadeTo(1000,0.5)
-              $('.Spain').fadeTo(1000,0.5)
-              $('.Austria').fadeTo(1000,0.5)
-            }
-              if(event.currentTarget.value=='Italy'){
-              $('.Italy').fadeTo(1000,1)
-              $('.Germany').fadeTo(1000,0.5)
-              $('.Norway').fadeTo(1000,0.5)
-              $('.Romania').fadeTo(1000,0.5)
-              $('.Bosnia').fadeTo(1000,0.5)
-              $('.Ireland').fadeTo(1000,0.5)
-              $('.Spain').fadeTo(1000,0.5)
-              $('.Austria').fadeTo(1000,0.5)
-            }
-              if(event.currentTarget.value=='Ireland'){
-              $('.Ireland').fadeTo(1000,1)
-              $('.Germany').fadeTo(1000,0.5)
-              $('.Norway').fadeTo(1000,0.5)
-              $('.Romania').fadeTo(1000,0.5)
-              $('.Bosnia').fadeTo(1000,0.5)
-              $('.Italy').fadeTo(1000,0.5)
-              $('.Spain').fadeTo(1000,0.5)
-              $('.Austria').fadeTo(1000,0.5)
-            }
-              if(event.currentTarget.value=='Spain'){
-              $('.Spain').fadeTo(1000,1)
-              $('.Germany').fadeTo(1000,0.5)
-              $('.Norway').fadeTo(1000,0.5)
-              $('.Romania').fadeTo(1000,0.5)
-              $('.Italy').fadeTo(1000,0.5)
-              $('.Bosnia').fadeTo(1000,0.5)
-              $('.Ireland').fadeTo(1000,0.5)
-              $('.Austria').fadeTo(1000,0.5)
-            }
-              if(event.currentTarget.value=='Austria'){
-              $('.Austria').fadeTo(1000,1)
-              $('.Germany').fadeTo(1000,0.5)
-              $('.Norway').fadeTo(1000,0.5)
-              $('.Romania').fadeTo(1000,0.5)
-              $('.Italy').fadeTo(1000,0.5)
-              $('.Bosnia').fadeTo(1000,0.5)
-              $('.Ireland').fadeTo(1000,0.5)
-              $('.Spain').fadeTo(1000,0.5)
-            }
+            if (res.roads[0].country== 'Germany') {
+              $('#picdiv').remove()
+              $('.panel1').after('<div class="resultBeforeGoogle"> <h1>' + res.roads[0].country + ' </h1><h1>' + res.roads[0].routename+ ' </h1></div>')
+              //div wat kleiner maken
+              //.rating
+              //.something else instead of .country
+              }
+
+            if (res.roads[0].country== 'Germany') {
+              $('#picdiv').remove()
+              //$('.panel1').after('<div class="resultBeforeGoogle"> <h1>' + res.roads[0].routename+ ' </h1></div>')
+              //div wat kleiner maken
+              //.rating
+              //.something else instead of .country
+              }
+            //- else {
+            //-   $('.panel2').remove()
+            //-   //- div#picdiv.panel2
+            //-   }
+          //-   if(event.currentTarget.value=='Germany'){
+          //-     $('.Germany').show()
+          //-     $('.Norway').hide()
+          //-     $('.Romania').hide()
+          //-     $('.Bosnia').hide()
+          //-     $('.Italy').hide()
+          //-     $('.Ireland').hide()
+          //-     $('.Spain').hide()
+          //-     $('.Austria').hide()
+          //-   }
+          //-   if(event.currentTarget.value=='Norway'){
+          //-     $('.Norway').fadeTo(1000,1)
+          //-     $('.Germany').fadeTo(1000,0.5)
+          //-     $('.Romania').fadeTo(1000,0.5)
+          //-     $('.Bosnia').fadeTo(1000,0.5)
+          //-     $('.Italy').fadeTo(1000,0.5)
+          //-     $('.Ireland').fadeTo(1000,0.5)
+          //-     $('.Spain').fadeTo(1000,0.5)
+          //-     $('.Austria').fadeTo(1000,0.5)
+          //-   }
+          //-    if(event.currentTarget.value=='Romania'){
+          //-     $('.Romania').fadeTo(1000,1)
+          //-     $('.Germany').fadeTo(1000,0.5)
+          //-     $('.Norway').fadeTo(1000,0.5)
+          //-     $('.Bosnia').fadeTo(1000,0.5)
+          //-     $('.Italy').fadeTo(1000,0.5)
+          //-     $('.Ireland').fadeTo(1000,0.5)
+          //-     $('.Spain').fadeTo(1000,0.5)
+          //-     $('.Austria').fadeTo(1000,0.5)
+          //-   }
+          //-   if(event.currentTarget.value=='Bosnia and Herzegovina'){
+          //-     $('.Bosnia').fadeTo(1000,1)
+          //-     $('.Germany').fadeTo(1000,0.5)
+          //-     $('.Norway').fadeTo(1000,0.5)
+          //-     $('.Romania').fadeTo(1000,0.5)
+          //-     $('.Italy').fadeTo(1000,0.5)
+          //-     $('.Ireland').fadeTo(1000,0.5)
+          //-     $('.Spain').fadeTo(1000,0.5)
+          //-     $('.Austria').fadeTo(1000,0.5)
+          //-   }
+          //-     if(event.currentTarget.value=='Italy'){
+          //-     $('.Italy').fadeTo(1000,1)
+          //-     $('.Germany').fadeTo(1000,0.5)
+          //-     $('.Norway').fadeTo(1000,0.5)
+          //-     $('.Romania').fadeTo(1000,0.5)
+          //-     $('.Bosnia').fadeTo(1000,0.5)
+          //-     $('.Ireland').fadeTo(1000,0.5)
+          //-     $('.Spain').fadeTo(1000,0.5)
+          //-     $('.Austria').fadeTo(1000,0.5)
+          //-   }
+          //-     if(event.currentTarget.value=='Ireland'){
+          //-     $('.Ireland').fadeTo(1000,1)
+          //-     $('.Germany').fadeTo(1000,0.5)
+          //-     $('.Norway').fadeTo(1000,0.5)
+          //-     $('.Romania').fadeTo(1000,0.5)
+          //-     $('.Bosnia').fadeTo(1000,0.5)
+          //-     $('.Italy').fadeTo(1000,0.5)
+          //-     $('.Spain').fadeTo(1000,0.5)
+          //-     $('.Austria').fadeTo(1000,0.5)
+          //-   }
+          //-     if(event.currentTarget.value=='Spain'){
+          //-     $('.Spain').fadeTo(1000,1)
+          //-     $('.Germany').fadeTo(1000,0.5)
+          //-     $('.Norway').fadeTo(1000,0.5)
+          //-     $('.Romania').fadeTo(1000,0.5)
+          //-     $('.Italy').fadeTo(1000,0.5)
+          //-     $('.Bosnia').fadeTo(1000,0.5)
+          //-     $('.Ireland').fadeTo(1000,0.5)
+          //-     $('.Austria').fadeTo(1000,0.5)
+          //-   }
+          //-     if(event.currentTarget.value=='Austria'){
+          //-     $('.Austria').fadeTo(1000,1)
+          //-     $('.Germany').fadeTo(1000,0.5)
+          //-     $('.Norway').fadeTo(1000,0.5)
+          //-     $('.Romania').fadeTo(1000,0.5)
+          //-     $('.Italy').fadeTo(1000,0.5)
+          //-     $('.Bosnia').fadeTo(1000,0.5)
+          //-     $('.Ireland').fadeTo(1000,0.5)
+          //-     $('.Spain').fadeTo(1000,0.5)
+          //-   }
             })
           })
         })
@@ -383,7 +385,7 @@ html
       //- br
 
 
-      h1(style='color: #424242; padding: 0px; margin: 0px') RESULT
+      //- h1(style='color: #424242; padding: 0px; margin: 0px') RESULT
       div#results
         each road in roads
           .allResults
@@ -394,8 +396,8 @@ html
       script.
         $(document).ready(function(){
           $('#selectbar').change(function(event){
-            console.log('console.logging value')
-            console.log(event.currentTarget.value)
+            //- console.log('console.logging value')
+            //- console.log(event.currentTarget.value)
             $.post('/', {value:event.currentTarget.value}, function(res, status){
               //console.log('console.logging result')
               //console.log(res.roads.length)
@@ -409,7 +411,7 @@ html
           })
         })
 
-    div(name='panelGooglemaps', id='googleMap',style='width:100%;height:400px;')
+    div.panelGooglemaps#googleMap
       |  &nbsp;     
       h1 GOOGLE MAPS
       script.
