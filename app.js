@@ -52,10 +52,10 @@ app.get('/', (req, res) => {
 
 
 app.post('/', (req, res)=> {
-	console.log('console.logging value')
-	console.log(req.body.value)
-	console.log('req.body is:')
-	console.log(req.body)
+	// console.log('console.logging value')
+	// console.log(req.body.value)
+	// console.log('req.body is:')
+	// console.log(req.body)
 	var thisCountry = req.body.value
 	if (thisCountry === "all") {
 		Roads.findAll()
