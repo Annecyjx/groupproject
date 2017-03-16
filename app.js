@@ -52,16 +52,12 @@ app.get('/', (req, res) => {
 
 
 app.post('/', (req, res)=> {
-	console.log('console.logging value')
-	console.log(req.body.value)
-	console.log('req.body is:')
-	console.log(req.body)
+
 	var thisCountry = req.body.value
 	if (thisCountry === "all") {
 		Roads.findAll()
 		.then((result) => {
-			// console.log('result is:')
-			// console.log(result)
+
 			res.send({roads: result})
 		})
 	} else {
@@ -71,19 +67,11 @@ app.post('/', (req, res)=> {
 			}
 		})
 		.then((result) => {
-			//console.log('spcRoad result is:')
-			//console.log(result)		
+	
 			res.send({roads: result})
 		})
 	}
 })
-
-// <<<<<<< HEAD
-// app.post('/login', bodyParser.urlencoded({extended: true}), function (request, response) {
-// 	if(request.body.email.length === 0) {
-// 		response.redirect('/?message=' + encodeURIComponent("Please fill out your email address."));
-// 		return;
-// =======
 
 
 app.get('/specroute',(req,res)=>{
@@ -100,71 +88,86 @@ app.get('/specroute',(req,res)=>{
 		}
 	})
 	.then((result) => {
-		// console.log('req.query is:')
-		// console.log(req.query)
+
 		res.send(result)
 	})
 	}
 
 })
 
+
+ 
 app.post('/login', (req, res) => {
-	//console.log(req.body.username)
-	if (req.body.username.length === 0){
-		res.redirect('/login/?message=' + encodeURIComponent("Please fill out your username."))
+	if (req.body.loginEmailInput.length === 0) {
+		res.send('emailempty');
+		return;
 
-	}
-
-	if(request.body.password.length === 0) {
-		response.redirect('/?message=' + encodeURIComponent("Please fill out your password."));
+	} else if(req.body.loginPasswordInput.length === 0) {
+		res.send('passwordempty');
 		return;
 	}
 
 	User.findOne({
 		where: {
-			email: request.body.email
+			email: req.body.loginEmailInput
 		}
-	}).then(function (user) {
+	}).then((user) => {
 		if(user === null) {
-			response.redirect('/?message=' + encodeURIComponent("Invalid email or password."));
-			return user
+			res.send('error');
+			return;
 		}
+
 		else {
-			bcrypt.compare(request.body.password, user.password, (err, result)=>{
+			bcrypt.compare(req.body.loginPasswordInput, user.password, (err, result)=>{
 				if (err) throw err;
 				if (user !== null && result) {
-					request.session.user = user;
-					response.redirect('/');
+					req.session.user = user;
+					res.send({user: req.session.user});
+					return;
 				}
 				else {
-					response.redirect('/?message=' + encodeURIComponent("Invalid email or password."));
-
+					res.send('error');
+					return;
 				}
 			})
-	}, function (error) {
-		response.redirect('/?message=' + encodeURIComponent("Invalid email or password."));
-	};
-});
+		} 
+	}) 
+})
+
+
+app.get('/logout', function (req, res) {
+  req.session.destroy(function (error) {
+    if(error) {
+        throw error;
+    }
+    console.log('destroyed session');
+    res.redirect('/');
+  })
+})
 
 app.post('/signup', (req, res) => {
 
-	console.log('the signup post is working')
-	let userInputUsername = req.body.username;
-	let userInputEmail = req.body.email;
-	let userInputPassword = req.body.password;
+	console.log('the signup post is working');
 
-	bcrypt.hash(userInputPassword, 8, (err,hash) =>{
+	if (req.body.signupEmailInput.length === 0) {
+		res.send('emailempty');
+		return;
+
+	} else if(req.body.signupPasswordInput.length === 0) {
+		res.send('passwordempty');
+		return;
+	}
+
+	bcrypt.hash(req.body.signupPasswordInput, 8, (err,hash) =>{
 		if (err) throw err
 
 			return User.create({
-				username: userInputUsername,
-				email: userInputEmail,
+				email: req.body.signupEmailInput,
 				password: hash
 			})
 
 		.then(function() {
 			res.redirect('/');
-
 		})
 	})	
 });
@@ -180,7 +183,7 @@ app.post('/signup', (req, res) => {
 // });
 
 //server
-sequelize.sync({force:true})
+sequelize.sync(/*{force:true}*/)
 	.then(() => {
 		//Route Germany Stuttgart to Bazel  
 		Roads.create({

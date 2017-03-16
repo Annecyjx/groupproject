@@ -8,10 +8,24 @@ input[type=text], input[type=password] {
     box-sizing: border-box;
 }
 
+body, html {
+    font-family: 'Chonburi', cursive;
+}
+
+#title {
+    font-size: 80px;
+    color: white; 
+    padding: 0px; 
+    margin: 20%; 
+    text-align: center;
+}
+
 /* just the button, without it being clicked */
-button#test {
+button#signup {
     position: fixed;
 }
+
+
 
 /* Set a style for all buttons */
 button {
@@ -28,8 +42,13 @@ button {
 }
 
 /* just the button, without it being clicked */
-button.test#test {
+button#login {
     position: fixed;
+}
+
+button#unicorn {
+    width: 10%;
+    float: right;
 }
 
 /* Set a style for all buttons */
@@ -259,13 +278,12 @@ img{
 
 
 .footer-distributed{
+    font-family: 'Chonburi';
     background-color: #292c2f;
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
     box-sizing: border-box;
     width: 100%;
     text-align: left;
-    font: bold 16px sans-serif;
-
     padding: 55px 50px;
     margin-top: 80px;
 }
@@ -436,11 +454,15 @@ h6 {
 }
 
 img#logo {
-
    max-height: 66px;
    max-width: 200px;
 }
-/*Xuan */
+
+.welcome {
+    float: right;
+
+}
+/*selectbar X*/
 
 .input-field.col.m6 {
         font-family: 'Roboto','sans-serif';

@@ -9,64 +9,66 @@ html
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
     link(type='text/css' rel='stylesheet', href='/../css/style.css')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    script(type='text/javascript', src='/../js/jquery-3.1.1.js')
 
   body(style='padding: 0px; margin: 0px')
-    button#test(onclick="document.getElementById('id01').style.display='block'", style='width:auto;') Sign Up
-    #id01.modal
-      form.modal-content.animate(action='/')
-        span.close(onclick="document.getElementById('id01').style.display='none'", title='Close Modal') &times;
-        |  
-        .container
-          label
-            b Email
-          |  
-          input(type='text', placeholder='Enter Email', name='email', required='')
-          |  
-          label
-            b Password
-          |  
-          input(type='password', placeholder='Enter Password', name='psw', required='')
-          |  
-          label
-            b Repeat Password
-          |  
-          input(type='password', placeholder='Repeat Password', name='psw-repeat', required='')
-          |  
-          input(type='checkbox', checked='checked')
-          p
-            | By creating an account you agree to our 
-            a(href='#') Terms &amp; Privacy
-            | .
-          .clearfix
-            button.cancelbtn(type='button', onclick="document.getElementById('id01').style.display='none'") Cancel
-            |  
-            button.signupbtn(type='submit') Sign Up
 
-    button.test#test(onclick="document.getElementById('id02').style.display='block'", style='width:auto;') Login
-    #id02.modal
-      form.modal-content.animate(action='/')
-        .imgcontainer
-          span.close(onclick="document.getElementById('id02').style.display='none'", title='Close Modal') &times;
+    if user
+        h2=user.username
+        h2 Welcome!
+    else
+
+      button#signup(onclick="document.getElementById('id01').style.display='block'", style='width:auto;') Sign Up
+      #id01.modal
+        form.modal-content.animate#signupForm(method='POST', action='/signup')
+          span.close(onclick="document.getElementById('id01').style.display='none'", title='Close Modal') &times;
           |  
-          //- img.avatar(src='/../img/25084837.png', alt='Avatar')
-        .container
-          label
-            b Email
-          |  
-          input(type='text', placeholder='Enter Email', name='email', required='')
-          |  
-          label
-            b Password
-          |  
-          input(type='password', placeholder='Enter Password', name='psw', required='')
-          |  
-          button.signupbtn(type='submit') Login
-          |  
-          button.cancelbtn(type='button', onclick="document.getElementById('id01').style.display='none'") Cancel
-          |  
-          span.psw
-            | Forgot 
-            a(href='#') password?
+          .container
+            label
+              b Email
+            |
+            input(id='signupemail', type='text', placeholder='Enter Email', name='email', required)
+            |  
+            label
+              b Password
+            |  
+            input(id='signuppassword', type='password', placeholder='Enter Password', name='password', required)
+            |  
+            input(type='checkbox', checked='checked')
+            p
+              | By creating an account you agree to our 
+              a(href='#') Terms &amp; Privacy
+              | .
+            .clearfix
+              button.signupbtn(type='submit') Sign Up
+              |
+              button.cancelbtn(type='button', onclick="document.getElementById('id01').style.display='none'") Cancel
+      
+      button.test#login(onclick="document.getElementById('id02').style.display='block'", style='width:auto;') Login
+      #id02.modal
+        form.modal-content.animate#loginForm(method='POST', action='/login')
+          .imgcontainer
+            span.close(onclick="document.getElementById('id02').style.display='none'", title='Close Modal') &times;
+            |  
+            //- img.avatar(src='/../img/25084837.png', alt='Avatar')
+          .container
+            label
+              b email
+            |  
+            input(id='loginemail', type='text', placeholder='Enter Email', name='email', required)
+            |  
+            label
+              b password
+            |  
+            input(id='loginpassword', type='password', placeholder='Enter Password', name='password', required)
+            |  
+            button.signupbtn(type='submit' id="loginbutton") Login
+            |  
+            button.cancelbtn(type='button', onclick="document.getElementById('id02').style.display='none'") Cancel
+            |  
+            span.psw
+              | Forgot 
+              a(href='#') password?
     div(name='panel1', style='height: 100%; background: url("/../img/sunset-summer-motorcycle.jpg") no-repeat center center')
       //- nav
       //-   .nav-wrapper(style='background-color: #bdbdbd')
@@ -80,7 +82,7 @@ html
       img#logo(src='/../img/bre.png', alt='')
 
       .container
-        h1(style='color: white; padding: 0px; margin: 20%; text-align: center') Biker Roads Europe
+        h1(id="title") BIKER ROADS EUROPE
         .valign-wrapper
             .input-field.col.m6
               b Select your country route:
@@ -105,7 +107,7 @@ html
 
   
 
-    div(name='panel2', style='height: 100%; background-color: #bdbdbd; ')
+    div(class='result', style='height: 100%; background-color: #bdbdbd; ')
 
       h1(style='color: #424242; padding: 0px; margin: 0px' center) RESULT
       br
@@ -273,14 +275,12 @@ html
         script.
           $(document).ready(function(){
             $('#selectbar').change(function(event){
-              console.log('console.logging value')
-              console.log(event.currentTarget.value)
+
               $.post('/', {value:event.currentTarget.value}, function(res, status){
-                //console.log('console.logging result')
-                //console.log(res.roads.length)
+
                 $('.allResults').remove()
                 for(var i = 0; i < res.roads.length; i++){
-                  $('#results').append('<div class="allResults"><h1>' + res.roads[i].routename + '</h1>' +
+                  $('#results').append('<div class="allResults"><h1>'+ res.roads[i].routename + '</h1>' +
                     '<h3>' + res.roads[i].country + '</h3>' +
                     '<p>' + res.roads[i].description + '</p></div>')
                 }
@@ -481,7 +481,7 @@ html
       .footer-right
         p.footer-company-about
           span About the company
-          |  This great website was created to make Europeans bikers' life easier. Big thank you to the beautiful ms.IDon't, fabolous Lisa and the lovely Xuan!
+          |  This great website was created to make Europeans bikers' life easier. Big thank you to the beautiful ms.IDon't, fabulous Lisa and the lovely Xuan!
         .footer-icons
           a(href='#')
             i.fa.fa-facebook
@@ -492,13 +492,67 @@ html
           a(href='#')
             i.fa.fa-github
 
-      //- div(name='panel4', style='height: 30%; background-color: #8bc34a')
-      //- h1 CONTACT
+
+
+  script.
+    $('#loginForm').submit(function(event) { 
+    //we use sumbit action instead of click, to enable client side validation and server side validation
+      event.preventDefault();//prevents popup from going away too early
+      $('.tempMes').remove();//prevents appending multiple 'error' messages
+      var data = {
+        loginEmailInput:document.getElementById('loginemail').value,
+        loginPasswordInput:document.getElementById('loginpassword').value
+      }
+      $.post('/login', data, (res) => {
+      //checking on server if email and password are correct, then callback different actions for different res
+        if (res === 'error'){
+          $('#loginpassword').after('<p class="tempMes">Invalid email or password</p>');
+          console.log(res);
+
+          } else if (res === 'emailempty') {
+            $('#loginpassword').after('<p class="tempMes">Please enter your email</p>');
+          } else if (res === 'passwordempty') {
+            $('#loginpassword').after('<p class="tempMes">Please enter your password</p>');
+          } else {
+            document.getElementById('id02').style.display='none'
+            //hide popup
+            $('#login').remove();
+            $('#signup').remove();
+            //remove buttons
+            $('#logo').after('<h2 class="welcome"> Welcome ' + res.user.email + '!</h2>')
+            $('.welcome').before('<button id="unicorn"> <a href="/logout"> Logout </a></button>');
+            //add welcome message (user session is stored in res)
+
+          }
+      })
+    })
+
+  script.
+    $('#signupForm').submit(function(event) {
+      event.preventDefault();
+      $('.tempMes').remove();
+      var data = {
+        signupEmailInput:document.getElementById('signupemail').value,
+        signupPasswordInput:document.getElementById('signuppassword').value
+      }
+      $.post('/signup', data, (res) => {
+        if (res === 'error'){
+          $('#signuppassword').after('<p class="tempMes">Invalid email or password</p>');
+          console.log(res);
+
+          } else if (res === 'emailempty') {
+            $('#signuppassword').after('<p class="tempMes">Please enter your email</p>');
+          } else if (res === 'passwordempty') {
+            $('#signuppassword').after('<p class="tempMes">Please enter your password</p>');
+          } else {
+            document.getElementById('id01').style.display='none'
+          }
+      })
+    })
+
 
   script(src='https://code.jquery.com/jquery.js')
   script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
   script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js')
   script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyA9hyb7Hz8M7ZgAoJyXThHFx5951myltTI&callback=initMap')
-  script(type='text/javascript', src='/../js/jquery-3.1.1.js')
-  //- script(type='text/javascript', src='/..js/materialize.js')
   script(type='text/javascript', src='/js/Javascript.js')
