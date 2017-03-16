@@ -8,6 +8,7 @@ const pg = require('pg');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const bcrypt = require('bcrypt');
 
 app.use(bodyParser.urlencoded({extended: true}));  
 app.use(bodyParser.json());
@@ -38,30 +39,25 @@ const Roads = sequelize.define('road', {
 	latA: Sequelize.DECIMAL,
 	lngA: Sequelize.DECIMAL,
 	latB: Sequelize.DECIMAL,
-	lngB: Sequelize.DECIMAL,
+	lngB: Sequelize.DECIMAL
 })
 
 app.get('/', (req, res) => {
 	Roads.findAll()
 	.then(function(result){
-		console.log('result is:')
-		console.log(result)
-		res.render('index', {roads: result})
+		res.render('index', {roads: result, user: req.session.user})
+
 	})
 });
 
 
 app.post('/', (req, res)=> {
-	console.log('console.logging value')
-	console.log(req.body.value)
-	console.log('req.body is:')
-	console.log(req.body)
+
 	var thisCountry = req.body.value
 	if (thisCountry === "all") {
 		Roads.findAll()
 		.then((result) => {
-			// console.log('result is:')
-			// console.log(result)
+
 			res.send({roads: result})
 		})
 	} else {
@@ -71,13 +67,11 @@ app.post('/', (req, res)=> {
 			}
 		})
 		.then((result) => {
-			//console.log('spcRoad result is:')
-			//console.log(result)		
+	
 			res.send({roads: result})
 		})
 	}
 })
-
 
 
 app.get('/specroute',(req,res)=>{
@@ -94,57 +88,89 @@ app.get('/specroute',(req,res)=>{
 		}
 	})
 	.then((result) => {
-		// console.log('req.query is:')
-		// console.log(req.query)
+
 		res.send(result)
 	})
 	}
 
 })
 
+
+ 
 app.post('/login', (req, res) => {
-	//console.log(req.body.username)
-	if (req.body.username.length === 0){
-		res.redirect('/login/?message=' + encodeURIComponent("Please fill out your username."))
-	}
-	if (req.body.password.length === 0){
-		res.redirect('/login/?message=' + encodeURIComponent("Please fill out your password."))
+	if (req.body.loginEmailInput.length === 0) {
+		res.send('emailempty');
+		return;
+
+	} else if(req.body.loginPasswordInput.length === 0) {
+		res.send('passwordempty');
+		return;
 	}
 
 	User.findOne({
 		where: {
-			username: req.body.username
+			email: req.body.loginEmailInput
 		}
 	}).then((user) => {
-		//console.log(user)
-		bcrypt.compare(req.body.password, user.password, function(err, result) {
-			if(result === true) {
-				req.session.user = user;
-				res.redirect('/profile/'+user.username)
-			} else {
-				res.redirect('/login/?message=' + encodeURIComponent("Invalid username or password."))
-			}
-		})
-	})
+		if(user === null) {
+			res.send('error');
+			return;
+		}
+
+		else {
+			bcrypt.compare(req.body.loginPasswordInput, user.password, (err, result)=>{
+				if (err) throw err;
+				if (user !== null && result) {
+					req.session.user = user;
+					res.send({user: req.session.user});
+					return;
+				}
+				else {
+					res.send('error');
+					return;
+				}
+			})
+		} 
+	}) 
 })
 
 
+app.get('/logout', function (req, res) {
+  req.session.destroy(function (error) {
+    if(error) {
+        throw error;
+    }
+    console.log('destroyed session');
+    res.redirect('/');
+  })
+})
+
 app.post('/signup', (req, res) => {
-	//console.log('signup post request is working')  //testing purposes
-	bcrypt.hash(req.body.password, 8, function(err, hash) {
 
-		User.create({ 
-			username: req.body.username,
-			password: hash,
-			email: req.body.email
+	console.log('the signup post is working');
+
+	if (req.body.signupEmailInput.length === 0) {
+		res.send('emailempty');
+		return;
+
+	} else if(req.body.signupPasswordInput.length === 0) {
+		res.send('passwordempty');
+		return;
+	}
+
+	bcrypt.hash(req.body.signupPasswordInput, 8, (err,hash) =>{
+		if (err) throw err
+
+			return User.create({
+				email: req.body.signupEmailInput,
+				password: hash
+			})
+
+		.then(function() {
+			res.redirect('/');
 		})
-	
-	.then(()=> {
-		res.redirect('/'); 
-	})
-	})
+	})	
 });
-
 
 // // search
 // app.post('/search', function(req, res){
@@ -157,7 +183,7 @@ app.post('/signup', (req, res) => {
 // });
 
 //server
-sequelize.sync({force:true})
+sequelize.sync(/*{force:true}*/)
 	.then(() => {
 		//Route Germany Stuttgart to Bazel  
 		Roads.create({
