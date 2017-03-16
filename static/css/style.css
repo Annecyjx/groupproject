@@ -5,8 +5,9 @@ body {
 }
 
 .panel1 {
-/*    height: 100%; 
-*/    background: url("/../img/sunset-summer-motorcycle.jpg") no-repeat center center
+    height: 100%; 
+    background: url("/../img/sunset-summer-motorcycle.jpg") no-repeat center center;
+    text-align: center;
 }
 
 .result {
@@ -33,7 +34,7 @@ body, html {
     font-size: 80px;
     color: white; 
     padding: 0px; 
-    margin: 20%; 
+    margin: 10% 20% 10% 20%; 
     text-align: center;
 }
 
@@ -152,6 +153,7 @@ img.avatar {
     color: #000;
     font-size: 40px;
     font-weight: bold;
+    visibility: 
 }
 
 #modalclose{
@@ -162,6 +164,8 @@ img.avatar {
     color: #000;
     font-size: 40px;
     font-weight: bold;
+    z-index: 1;
+
 }
 
 .close:hover,
@@ -284,7 +288,7 @@ img.avatar {
   cursor: pointer;
   padding: 15px;
   border-radius: 10px;
-  width: 50px;
+  width: 60px;
   height: 55px;
 }
 
@@ -294,8 +298,15 @@ img.avatar {
 
 /**/
 
+
 .modal-backdrop {
-    position: absolute; 
+    position: static;
+    top: 0;
+    right: 0;
+    /* bottom: 0; */
+    left: 0;
+    z-index: 1040;
+    background-color: #000;
 }
 /*
 img{
@@ -511,15 +522,17 @@ img#logo {
 }
 /*selectbar X*/
 
-.input-field.col.m6 {
+/*.input-field.col.m6 {
         font-family: 'Roboto','sans-serif';
         color:#006400;
         text-align: center;
-}
+}*/
 
 #googleMap {
-    width:100%;
+    width:85%;
+    margin: auto;
     height:400px;
+
 }
 
 
@@ -529,4 +542,25 @@ img#logo {
     height: 20%;
     color: black;
 
+}
+
+/* selectbar on image */
+
+#selectbar {
+    border: none;
+    color:#006400;
+    text-align: center;
+    position: center;
+
+}
+
+
+
+.modal-backdrop.in {
+
+     opacity: .0; 
+}
+
+a {
+    padding-top: 10px;
 }
