@@ -194,7 +194,7 @@ app.post('/specroute:countryName', (req, res)=>{
 // })
 
 // ajax post request route for login
-app.post('/', (req, res) => {
+app.post('/login', (req, res) => {
 	if (req.body.loginEmailInput.length === 0) {
 		res.send('emailempty');
 		return;
@@ -217,7 +217,8 @@ app.post('/', (req, res) => {
 				if (user !== null && result) {
 					console.log(user)
 					req.session.user = user;
-					res.redirect('/login');
+					//res.redirect('/login');
+					res.send({user: req.session.user})
 					return;
 				}
 				else {

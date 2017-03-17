@@ -16,7 +16,7 @@ html
     if gebruiker
       button#unicorn.welcome
         a(href="/logout") LOGOUT
-      h2.welcome Welcome #{user.username}!
+      h2.welcome(id='foo' data-target=user.id) Welcome #{user.username}!
     else
       button#signup(onclick="document.getElementById('id01').style.display='block'") SIGN UP
       #id01.modal
@@ -346,7 +346,9 @@ html
 
 
   script.
-    var gebruiker = "";
+    var gebruiker = $('#foo').data('target');
+    console.log(gebruiker)
+    console.log('1234567890 :D:D:D:D:D:D:D:D:D:D')
 
     $('#loginForm').submit(function(event) { 
     //we use sumbit action instead of click, to enable client side validation and server side validation
@@ -356,7 +358,7 @@ html
         loginEmailInput:document.getElementById('loginemail').value,
         loginPasswordInput:document.getElementById('loginpassword').value
       }
-      $.post('/', data, (res) => {
+      $.post('/login', data, (res) => {
       //checking on server if email and password are correct, then callback different actions for different res
         if (res === 'error'){
           $('#loginpassword').after('<p class="tempMes">Invalid email or password</p>');
@@ -454,7 +456,9 @@ html
                 '<h4>' + res.roads[i].country + '</h4>' +
                 '<p>' + res.roads[i].description + '</p>' +
                 '<p id="averageRating'+ratingThis+'"> Rating: ' + res.ratings[i].rating+'</p></div>')
-              if (gebruiker !== null) {
+              console.log('------------------------------')
+              console.log(gebruiker)
+              if (gebruiker) {
                 var ratingThis = res.roads[i].id
                 $('.oneResult').append('<form class="sendFormRating" data-route_id='+ratingThis+'>' +
                   '<select id="selectRating'+ratingThis+'" name="addRating">' +
