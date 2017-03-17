@@ -11,8 +11,8 @@ body {
 }
 
 .result {
-/*    height: 100%; 
-*/    /*background-color: #bdbdbd;*/
+    height: 73%; 
+    /*background-color: #bdbdbd;*/
     padding-top: 10px;
 }
 
@@ -120,6 +120,7 @@ img.avatar {
 /* Add padding to container elements */
 .container {
     padding: 26px;
+    width: 100%
 }
 
 /* The Modal (background) */
@@ -318,7 +319,7 @@ img{
 
 
 .footer-distributed{
-    font-family: 'Chonburi';
+    font-family: arial;
     background-color: #292c2f;
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
     box-sizing: border-box;
@@ -405,6 +406,7 @@ img{
     color: #ffffff;
     vertical-align: middle;
     margin:0;
+    font-family: arial;
 }
 
 .footer-distributed .footer-center p span{
@@ -513,9 +515,11 @@ h4 {
     text-align: center;
     font-size: 15px;
     margin-bottom: : 10px;
+    padding-bottom: 25px
 }
 
 h6 {
+    font-family: arial;
     text-align: center;
 }
 
