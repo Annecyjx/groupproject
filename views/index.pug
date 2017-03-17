@@ -11,64 +11,74 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     script(type='text/javascript', src='/../js/jquery-3.1.1.js')
 
-  body(style='padding: 0px; margin: 0px')
-    button#test(onclick="document.getElementById('id01').style.display='block'", style='width:auto;') Sign Up
-    #id01.modal
-      form.modal-content.animate(action='/')
-        span.close(onclick="document.getElementById('id01').style.display='none'", title='Close Modal') &times;
-        |  
-        .container
-          label
-            b Email
+  body
+    - var gebruiker = user
+    if gebruiker
+      button#unicorn.welcome
+        a(href="/logout") LOGOUT
+      h2.welcome Welcome #{user.username}!
+    else
+      button#signup(onclick="document.getElementById('id01').style.display='block'") SIGN UP
+      #id01.modal
+        form.modal-content.animate#signupForm(method='POST', action='/signup')
+          span.close(onclick="document.getElementById('id01').style.display='none'", title='Close Modal') &times;
           |  
-          input(type='text', placeholder='Enter Email', name='email', required='')
-          |  
-          label
-            b Password
-          |  
-          input(type='password', placeholder='Enter Password', name='psw', required='')
-          |  
-          label
-            b Repeat Password
-          |  
-          input(type='password', placeholder='Repeat Password', name='psw-repeat', required='')
-          |  
-          input(type='checkbox', checked='checked')
-          p
-            | By creating an account you agree to our 
-            a(href='#') Terms &amp; Privacy
-            | .
-          .clearfix
-            button.cancelbtn(type='button', onclick="document.getElementById('id01').style.display='none'") Cancel
+          .container
+            label
+              b Username
             |  
-            button.signupbtn(type='submit') Sign Up
+            input(id='signupusername', type='text', placeholder='Enter Username', name='username', required)
+            label
+              b Email
+            |  
+            input(id='signupemail', type='text', placeholder='Enter Email', name='email', required)
+            |  
+            label
+              b Password
+            |  
+            input(id='signuppassword', type='password', placeholder='Enter Password', name='password', required)
+            |    
+            input(type='checkbox', checked='checked')
+            p
+              | By creating an account you agree to our 
+              a(href='#') Terms &amp; Privacy
+              | 
+            .clearfix
+              button.signupbtn(type='submit') Sign Up
+              |
+              button.cancelbtn(type='button', onclick="document.getElementById('id01').style.display='none'") Cancel
 
-    button.test#test(onclick="document.getElementById('id02').style.display='block'", style='width:auto;') Login
-    #id02.modal
-      form.modal-content.animate(action='/')
-        .imgcontainer
-          span.close(onclick="document.getElementById('id02').style.display='none'", title='Close Modal') &times;
-          |  
-          //- img.avatar(src='/../img/25084837.png', alt='Avatar')
-        .container
-          label
-            b Email
-          |  
-          input(type='text', placeholder='Enter Email', name='email', required='')
-          |  
-          label
-            b Password
-          |  
-          input(type='password', placeholder='Enter Password', name='psw', required='')
-          |  
-          button.signupbtn(type='submit') Login
-          |  
-          button.cancelbtn(type='button', onclick="document.getElementById('id01').style.display='none'") Cancel
-          |  
-          span.psw
-            | Forgot 
-            a(href='#') password?
-    div(name='panel1', style='height: 100%; background: url("/../img/sunset-summer-motorcycle.jpg") no-repeat center center')
+      button.test#login(onclick="document.getElementById('id02').style.display='block'") LOGIN
+      #id02.modal
+        form.modal-content.animate#loginForm(method='POST', action='/login')
+          .imgcontainer
+            span.close(onclick="document.getElementById('id02').style.display='none'", title='Close Modal') &times;
+            |  
+          .container
+            label
+              b Email
+            |  
+            input(id='loginemail', type='text', placeholder='Enter Email', name='email', required)
+            //- label
+            //-   b Email
+            //- |  
+            //- input(id='loginemail', type='text', placeholder='Enter Email', name='email', required)
+            |  
+            label
+              b Password
+            |  
+            input(id='loginpassword', type='password', placeholder='Enter Password', name='password', required)
+            |  
+            button.signupbtn(type='submit', id="loginbutton") Login
+            |  
+            button.cancelbtn(type='button', onclick="document.getElementById('id02').style.display='none'") Cancel
+            |  
+            span.psw
+              | Forgot 
+              a(href='#') password?
+
+    div.panel1
+      img#logo(src='/../img/bre.png', alt='')
       //- nav
       //-   .nav-wrapper(style='background-color: #bdbdbd')
       //-     a.brand-logo(href='#' style='padding: 0 0 0 15%') Logo
@@ -78,14 +88,14 @@ html
       //-       li
       //-         a(href='#') Sign up
 
-      img#logo(src='/../img/bre.png', alt='')
       .container
-        h1(style='color: white; padding: 0px; margin: 20%; text-align: center') Biker Roads Europe
+        h1(id="title") BIKER ROADS EUROPE
         .valign-wrapper
             .input-field.col.m6
-              b Select your country route:
+              //- b Select your country route:
               select#selectbar
-                option(value='all') All Countries
+                option(value='all') All countries:
+                //- option(value='all') All Countries
                 option(value='Germany') Germany
                 option(value='Ireland') Ireland
                 option(value='Bosnia and Herzegovina') Bosnia and Herzegovina
@@ -94,14 +104,42 @@ html
                 option(value='Italy') Italy
                 option(value='Romania') Romania
                 option(value='Austria') Austria
-      //- .valign-wrapper
-      //-   .row
-      //-     form(name='search', method='POST', action='/')
-      //-       .row(style='width: 100%')
-      //-         .input-field.col.m6(style='width: 100%')
-      //-           input#search.validate( type='text', name='search')
 
+    div#picdiv.result
+      #result 
+        each rating in ratings
+          .col-lg-3.col-sm-4.col-xs-6.image-holder
+            .panel.panel-default
+              .panel-body
+                a.zoom(href='#', data-toggle='modal', data-target='#lightbox'+rating.road.id )
+                  img(src='/../img/photo'+rating.road.id+'.png', alt='...', class=rating.road.country)
+                  span.overlay.modal-backdrop.fade.in
+                    i.glyphicon.glyphicon-fullscreen
+            h1 #{rating.road.routename}
+            h4 #{rating.road.country}
+          //- modal 
+          .modal.fade(id='lightbox'+rating.road.id, tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+            .modal-dialog
+              .modal-content
+                .modal-header
+                  button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
+                  h4#myModalLabel.modal-title #{rating.road.routename}
+                  h6 #{rating.road.description}
+                  p(id='averageRating'+rating.road.id) #{rating.rating}
+                  if user 
+                    form(class='sendFormRating', data-route_id=rating.road.id)
+                      select(id='selectRating'+rating.road.id, name='addRating')
+                        option(value='undefined') Give a rating
+                        option(value='1') Hell (1)
+                        option(value='2') Bad (2)
+                        option(value='3') Meh (3)
+                        option(value='4') Good (4)
+                        option(value='5') Heaven (5)
+                      input(class='sendRating' type='submit' value='Go')
+                .modal-body
+                  img(src='/../img/photo'+rating.road.id+'.png', alt='', class=rating.road.country)
     
+
 
   
 
@@ -388,6 +426,9 @@ html
         })
 
     div(name='panelGooglemaps', id='googleMap',style='width:85%;height:400px;margin:auto')
+
+    div.panelGooglemaps#googleMap
+
       |  &nbsp;     
       h1 GOOGLE MAPS
       script.
@@ -459,11 +500,10 @@ html
           document.getElementById('selectbar').addEventListener('change', onChangeHandler);
         }
 
-
         function calculateAndDisplayRoute(directionsService, directionsDisplay){
           console.log('calculateAndDisplayRoute')
           var countryName = document.getElementById('selectbar').value; 
-          $.get('/specroute?countryName='+countryName, function(res, status){
+          $.post('/specroute'+countryName, function(res, status){
             console.log('logging res and status')
             console.log(res)
             console.log(status)
@@ -544,26 +584,26 @@ html
           })
         }
 
-
-
     button#myBtn(onclick='topFunction()', title='Go to top') Top
 
     footer.footer-distributed
       .footer-left
         h3
-          img(src='/../img/bre.png', alt='')
-        p.footer-links
-          a(href='#') Home
-          |  &middot; 
-          a(href='#') Images
-          |  &middot; 
-          a(href='#') Map
-          |  &middot; 
-          a(href='#') Sign up
-          |  &middot; 
-          a(href='#') Login
-          |  &middot; 
-          a(href='#') Contact
+          img#logobottom(src='/../img/bre.png', alt='')
+        //- p.footer-links
+        //-   a(href='#') Home
+        //-   |  &middot; 
+        //-   a(href='#') Images
+        //-   |  &middot; 
+        //-   a(href='#') Map
+        //-   |  &middot; 
+        //-   a(href='#') Sign up
+        //-   |  &middot; 
+        //-   a(href='#') Login
+        //-   |  &middot; 
+        //-   a(href='#') Contact
+        br
+        br
         p.footer-company-name Biker Roads Europe &copy; 2017
       .footer-center
         div
@@ -581,7 +621,9 @@ html
       .footer-right
         p.footer-company-about
           span About the company
-          |  This great website was created to make Europeans bikers' life easier. Big thank you to the beautiful ms.IDon't, fabolous Lisa and the lovely Xuan!
+
+          |  This great website was created to make Europeans bikers' life easier. Big thank you to the beautiful Ms.T, fabulous Lisa and the lovely Xuan!
+
         .footer-icons
           a(href='#')
             i.fa.fa-facebook
@@ -592,30 +634,163 @@ html
           a(href='#')
             i.fa.fa-github
 
-      //- div(name='panel4', style='height: 30%; background-color: #8bc34a')
-      //- h1 CONTACT
+
+
+  script.
+    var gebruiker = "";
+
+    $('#loginForm').submit(function(event) { 
+    //we use sumbit action instead of click, to enable client side validation and server side validation
+      event.preventDefault();//prevents popup from going away too early
+      $('.tempMes').remove();//prevents appending multiple 'error' messages
+      var data = {
+        loginEmailInput:document.getElementById('loginemail').value,
+        loginPasswordInput:document.getElementById('loginpassword').value
+      }
+      $.post('/', data, (res) => {
+      //checking on server if email and password are correct, then callback different actions for different res
+        if (res === 'error'){
+          $('#loginpassword').after('<p class="tempMes">Invalid email or password</p>');
+          console.log(res);
+
+          } else if (res === 'emailempty') {
+            $('#loginpassword').after('<p class="tempMes">Please enter your email</p>');
+          } else if (res === 'passwordempty') {
+            $('#loginpassword').after('<p class="tempMes">Please enter your password</p>');
+          } else {
+            document.getElementById('id02').style.display='none'
+            console.log('gebruiker is dit')
+            console.log(res.user)
+            gebruiker = res.user
+          }
+          location.reload();
+          //- if (gebruiker) {
+          //-   //hide popup
+          //-   $('#login').remove();
+          //-   $('#signup').remove();
+          //-   //remove buttons
+          //-   $('#logo').after('<h2 class="welcome"> Welcome ' + res.user.username + '!</h2>')
+          //-   $('.welcome').before('<button id="unicorn"> <a href="/logout"> Logout </a></button>');
+          //-   //add welcome message (user session is stored in res)
+          //- }
+          
+      })
+    })
+    console.log('dit is de gebruiker')
+    console.log(gebruiker)
+    $('#signupForm').submit(function(event) {
+      event.preventDefault();
+      $('.tempMes').remove();
+      var data = {
+        signupUsernameInput: document.getElementById('signupusername').value,
+        signupEmailInput:document.getElementById('signupemail').value,
+        signupPasswordInput:document.getElementById('signuppassword').value
+      }
+      $.post('/signup', data, (res) => {
+        if (res === 'error'){
+          $('#signuppassword').after('<p class="tempMes">Invalid email or password</p>');
+          console.log(res);
+
+        } else if (res === 'emailempty') {
+          $('#signuppassword').after('<p class="tempMes">Please enter your email</p>');
+        } else if (res === 'passwordempty') {
+          $('#signuppassword').after('<p class="tempMes">Please enter your password</p>');
+        } else {
+          document.getElementById('id01').style.display='none'
+        }
+      })
+    })
+
+    $(document).ready(function(){
+      $('#selectbar').change(function(event){
+        console.log('console.logging value')
+        console.log(event.currentTarget.value)
+        var nameOfCountry = event.currentTarget.value
+        $.post('/specroute'+nameOfCountry, {value:event.currentTarget.value}, function(res, status){
+          console.log('console.logging result')
+          console.log(res.roads.length)
+          //- console.log(res.ratings[0].rating)
+          console.log('remove this please')
+          $('#result').remove()
+          $('.oneResult').remove()
+          $('.sendFormRating').remove()
+          if (nameOfCountry === 'all') {
+            for(var i = 0; i<res.roads.length; i++){
+              $('#picdiv').append(
+                '<div class="col-lg-3 col-sm-4 col-xs-6 image-holder">' +
+                '<div class="panel panel-default">'+
+                  '<div class="panel-body"><a href="#" data-toggle="modal" data-target="#lightbox'+res.roads[i].id+'" class="zoom"><img src="/../img/photo'+res.roads[i].id+'.png" alt="..." class="'+res.roads[i].country+'"/><span class="overlay modal-backdrop fade in"><i class="glyphicon glyphicon-fullscreen"></i></span></a></div>'+
+                '</div>'+
+                '<h1>'+res.roads[i].routename+'</h1>'+
+                '<h4>'+res.roads[i].country+'</h4>'+
+              '</div>'+
+              '<div id="lightbox'+res.roads[i].id+'" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" class="modal fade">'+
+                '<div class="modal-dialog">'+
+                  '<div class="modal-content">'+
+                    '<div class="modal-header">'+
+                       '<button id="modalclose" type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>'+
+                      '<h4 id="myModalLabel" class="modal-title">'+res.roads[i].routename+'</h4>'+
+                      '<h6>'+res.roads[i].description+'</h6>'+
+                      '<p id="averageRating'+res.roads[i].id+'">'+res.ratings[i].rating+'</p>'+
+                    '</div>'+
+                    '<div class="modal-body"><img src="/../img/photo'+res.roads[i].id+'.png" alt="" class="'+res.roads[i].country+'"/></div>'+
+                  '</div>'+
+                '</div>'+
+              '</div>')
+            }
+          } else {
+            for(var i = 0; i < res.roads.length; i++){
+              var ratingThis = res.roads[i].id
+              $('#picdiv').append('<div class="oneResult", data-route_id='+ res.roads[i].id+'><h1>' + res.roads[i].routename + '</h1>' +
+                '<h4>' + res.roads[i].country + '</h4>' +
+                '<p>' + res.roads[i].description + '</p>' +
+                '<p id="averageRating'+ratingThis+'"> Rating: ' + res.ratings[i].rating+'</p></div>')
+              if (gebruiker !== null) {
+                var ratingThis = res.roads[i].id
+                $('.oneResult').append('<form class="sendFormRating" data-route_id='+ratingThis+'>' +
+                  '<select id="selectRating'+ratingThis+'" name="addRating">' +
+                    '<option value="undefined"> Give a rating</option>' +
+                    '<option value="1"> Hell (1)</option>' +
+                    '<option value="2"> Bad (2)</option>' +
+                    '<option value="3"> Meh (3)</option>' +
+                    '<option value="4"> Good (4)</option>' +
+                    '<option value="5"> Heaven (5)</option></select>' +
+                  '<input class="sendRating" type="submit" value="Go"></form>')
+              } else {
+                $('.oneResult').append('<p>Please log in to give a rating :)</p>')
+              }
+            }
+            console.log('yessss we are done!')
+          }
+        })
+      })
+    })
+
+    $(document).on("submit", '.sendFormRating', function(event){
+      var selectedForms = $(event.currentTarget)
+      var routeId = $(selectedForms[0]).data('route_id')
+      //- var thisRoad = #{ratings[0]}
+      event.preventDefault();
+      //- //console.log(document.getElementById('selectRating').value)
+      var id = $($(selectedForms[0]).children()[0]).attr('id')
+      var data = {
+        thisRoad: routeId,
+        addRating: $('#'+id).val()
+      }
+      //console.log('whatsup?')
+      //- console.log()
+      $.post('/rating', data, function(res, status){
+        //- console.log('logging result');
+        console.log(res.roadId);
+        console.log(res.average)
+        $('#averageRating'+res.roadId).html("<p id='averageRating'+"+res.roadId+">" + res.average + "</p>")
+      })
+    })
+
+
 
   script(src='https://code.jquery.com/jquery.js')
   script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
   script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js')
   script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyA9hyb7Hz8M7ZgAoJyXThHFx5951myltTI&callback=initMap')
-  script(type='text/javascript', src='/../js/jquery-3.1.1.js')
-  //- script(type='text/javascript', src='/..js/materialize.js')
   script(type='text/javascript', src='/js/Javascript.js')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
