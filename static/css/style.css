@@ -37,6 +37,7 @@ body, html {
     padding: 0px; 
     margin: 10% 20% 10% 20%; 
     text-align: center;
+    text-shadow: -2px 4px 15px #242424;
 }
 
 /* just the button, without it being clicked */
@@ -524,10 +525,10 @@ h6 {
 }
 
 img#logo {
-   max-height: 66px;
-   max-width: 200px;
+    max-height: 66px;
+    max-width: 200px;
     position: relative;
-    left: -42%;
+    float: left;
 }
 
 img#logobottom {
@@ -538,8 +539,25 @@ img#logobottom {
 
 .welcome {
     float: right;
-
+    padding-right: 20px;
+    color: #515151;
 }
+
+.welcome a {
+    text-decoration: none;
+    color: white;
+}
+
+.welcome a:hover{
+    text-decoration: none;
+    color: white;
+}
+
+.welcome a:visited{
+    text-decoration: none;
+    color: white;
+}
+
 /*selectbar X*/
 
 /*.input-field.col.m6 {
@@ -568,10 +586,10 @@ img#logobottom {
 
 #selectbar {
     border: none;
-    color:#006400;
+    color:black;
     text-align: center;
     position: center;
-
+    font-family: arial;
 }
 
 
@@ -583,4 +601,18 @@ img#logobottom {
 
 a {
     padding-top: 10px;
+}
+
+.oneResult h1{
+    font-size: 50px;
+}
+
+.oneResult h4 {
+    font-size: 30px;
+}
+
+.oneResult p {
+    font-size: 20px;
+    text-align: center;
+    font-family: arial;
 }
