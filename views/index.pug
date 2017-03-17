@@ -279,7 +279,8 @@ html
               directionsService.route({
                 origin: new google.maps.LatLng(res.ratings[0].road.latA,res.ratings[0].road.lngA),
                 destination: new google.maps.LatLng(res.ratings[0].road.latB,res.ratings[0].road.lngB),
-                travelMode: 'DRIVING'
+                travelMode: 'DRIVING',
+                avoidHighways: true
               }, 
                 function(response, status) {
                   if (status === 'OK') {
