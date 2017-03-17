@@ -19,6 +19,10 @@ html
         |  
         .container
           label
+            b Username
+          |  
+          input(id='signupusername', type='text', placeholder='Enter Username', name='username', required)
+          label
             b Email
           |  
           input(id='signupemail', type='text', placeholder='Enter Email', name='email', required)
@@ -46,9 +50,13 @@ html
           |  
         .container
           label
-            b Email
+            b Username
           |  
-          input(id='loginemail', type='text', placeholder='Enter Email', name='email', required)
+          input(id='loginusername', type='text', placeholder='Enter Username', name='username', required)
+          //- label
+          //-   b Email
+          //- |  
+          //- input(id='loginemail', type='text', placeholder='Enter Email', name='email', required)
           |  
           label
             b Password
@@ -57,7 +65,7 @@ html
           |  
           button.signupbtn(type='submit', id="loginbutton") Login
           |  
-          button.cancelbtn(type='button', onclick="document.getElementById('id01').style.display='none'") Cancel
+          button.cancelbtn(type='button', onclick="document.getElementById('id02').style.display='none'") Cancel
           |  
           span.psw
             | Forgot 
@@ -290,19 +298,21 @@ html
     footer.footer-distributed
       .footer-left
         h3
-          img#logo(src='/../img/bre.png', alt='')
-        p.footer-links
-          a(href='#') Home
-          |  &middot; 
-          a(href='#') Images
-          |  &middot; 
-          a(href='#') Map
-          |  &middot; 
-          a(href='#') Sign up
-          |  &middot; 
-          a(href='#') Login
-          |  &middot; 
-          a(href='#') Contact
+          img#logobottom(src='/../img/bre.png', alt='')
+        //- p.footer-links
+        //-   a(href='#') Home
+        //-   |  &middot; 
+        //-   a(href='#') Images
+        //-   |  &middot; 
+        //-   a(href='#') Map
+        //-   |  &middot; 
+        //-   a(href='#') Sign up
+        //-   |  &middot; 
+        //-   a(href='#') Login
+        //-   |  &middot; 
+        //-   a(href='#') Contact
+        br
+        br
         p.footer-company-name Biker Roads Europe &copy; 2017
       .footer-center
         div
