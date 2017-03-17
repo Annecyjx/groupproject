@@ -194,7 +194,7 @@ app.post('/specroute:countryName', (req, res)=>{
 // })
 
 // ajax post request route for login
-app.post('/login', (req, res) => {
+app.post('/', (req, res) => {
 	if (req.body.loginEmailInput.length === 0) {
 		res.send('emailempty');
 		return;
@@ -215,8 +215,9 @@ app.post('/login', (req, res) => {
 			bcrypt.compare(req.body.loginPasswordInput, user.password, (err, result)=>{
 				if (err) throw err;
 				if (user !== null && result) {
+					console.log(user)
 					req.session.user = user;
-					res.send({user: req.session.user});
+					res.redirect('/login');
 					return;
 				}
 				else {
@@ -226,6 +227,10 @@ app.post('/login', (req, res) => {
 			})
 		} 
 	}) 
+})
+
+app.get('/login', (req, res)=>{
+	res.redirect('/')
 })
 
 // ajax post request route for logout
@@ -252,6 +257,7 @@ app.post('/signup', (req, res) => {
 	bcrypt.hash(req.body.signupPasswordInput, 8, (err,hash) =>{
 		if (err) throw err
 			return User.create({
+				username: req.body.signupUsernameInput,
 				email: req.body.signupEmailInput,
 				password: hash
 			})

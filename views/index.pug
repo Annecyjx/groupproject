@@ -12,66 +12,72 @@ html
     script(type='text/javascript', src='/../js/jquery-3.1.1.js')
 
   body
-    button#signup(onclick="document.getElementById('id01').style.display='block'") Sign Up
-    #id01.modal
-      form.modal-content.animate#signupForm(method='POST', action='/signup')
-        span.close(onclick="document.getElementById('id01').style.display='none'", title='Close Modal') &times;
-        |  
-        .container
-          label
-            b Username
+    - var gebruiker = user
+    if gebruiker
+      button#unicorn.welcome
+        a(href="/logout") LOGOUT
+      h2.welcome Welcome #{user.username}!
+    else
+      button#signup(onclick="document.getElementById('id01').style.display='block'") SIGN UP
+      #id01.modal
+        form.modal-content.animate#signupForm(method='POST', action='/signup')
+          span.close(onclick="document.getElementById('id01').style.display='none'", title='Close Modal') &times;
           |  
-          input(id='signupusername', type='text', placeholder='Enter Username', name='username', required)
-          label
-            b Email
-          |  
-          input(id='signupemail', type='text', placeholder='Enter Email', name='email', required)
-          |  
-          label
-            b Password
-          |  
-          input(id='signuppassword', type='password', placeholder='Enter Password', name='password', required)
-          |    
-          input(type='checkbox', checked='checked')
-          p
-            | By creating an account you agree to our 
-            a(href='#') Terms &amp; Privacy
-            | 
-          .clearfix
-            button.signupbtn(type='submit') Sign Up
-            |
-            button.cancelbtn(type='button', onclick="document.getElementById('id01').style.display='none'") Cancel
+          .container
+            label
+              b Username
+            |  
+            input(id='signupusername', type='text', placeholder='Enter Username', name='username', required)
+            label
+              b Email
+            |  
+            input(id='signupemail', type='text', placeholder='Enter Email', name='email', required)
+            |  
+            label
+              b Password
+            |  
+            input(id='signuppassword', type='password', placeholder='Enter Password', name='password', required)
+            |    
+            input(type='checkbox', checked='checked')
+            p
+              | By creating an account you agree to our 
+              a(href='#') Terms &amp; Privacy
+              | 
+            .clearfix
+              button.signupbtn(type='submit') Sign Up
+              |
+              button.cancelbtn(type='button', onclick="document.getElementById('id01').style.display='none'") Cancel
 
-    button.test#login(onclick="document.getElementById('id02').style.display='block'") Login
-    #id02.modal
-      form.modal-content.animate#loginForm(method='POST', action='/login')
-        .imgcontainer
-          span.close(onclick="document.getElementById('id02').style.display='none'", title='Close Modal') &times;
-          |  
-        .container
-          label
-            b Username
-          |  
-          input(id='loginusername', type='text', placeholder='Enter Username', name='username', required)
-          //- label
-          //-   b Email
-          //- |  
-          //- input(id='loginemail', type='text', placeholder='Enter Email', name='email', required)
-          |  
-          label
-            b Password
-          |  
-          input(id='loginpassword', type='password', placeholder='Enter Password', name='password', required)
-          |  
-          button.signupbtn(type='submit', id="loginbutton") Login
-          |  
-          button.cancelbtn(type='button', onclick="document.getElementById('id02').style.display='none'") Cancel
-          |  
-          span.psw
-            | Forgot 
-            a(href='#') password?
+      button.test#login(onclick="document.getElementById('id02').style.display='block'") LOGIN
+      #id02.modal
+        form.modal-content.animate#loginForm(method='POST', action='/login')
+          .imgcontainer
+            span.close(onclick="document.getElementById('id02').style.display='none'", title='Close Modal') &times;
+            |  
+          .container
+            label
+              b Email
+            |  
+            input(id='loginemail', type='text', placeholder='Enter Email', name='email', required)
+            //- label
+            //-   b Email
+            //- |  
+            //- input(id='loginemail', type='text', placeholder='Enter Email', name='email', required)
+            |  
+            label
+              b Password
+            |  
+            input(id='loginpassword', type='password', placeholder='Enter Password', name='password', required)
+            |  
+            button.signupbtn(type='submit', id="loginbutton") Login
+            |  
+            button.cancelbtn(type='button', onclick="document.getElementById('id02').style.display='none'") Cancel
+            |  
+            span.psw
+              | Forgot 
+              a(href='#') password?
     div.panel1
-
+      img#logo(src='/../img/bre.png', alt='')
       //- nav
       //-   .nav-wrapper(style='background-color: #bdbdbd')
       //-     a.brand-logo(href='#' style='padding: 0 0 0 15%') Logo
@@ -80,8 +86,6 @@ html
       //-         a(href='#' button) Login
       //-       li
       //-         a(href='#') Sign up
-
-      img#logo(src='/../img/bre.png', alt='')
 
       .container
         h1(id="title") BIKER ROADS EUROPE
@@ -101,11 +105,7 @@ html
                 option(value='Austria') Austria
 
     div#picdiv.result
-      #result RESULT
-      
-
-      
-
+      #result 
         each rating in ratings
           .col-lg-3.col-sm-4.col-xs-6.image-holder
             .panel.panel-default
@@ -117,24 +117,24 @@ html
             h1 #{rating.road.routename}
             h4 #{rating.road.country}
           //- modal 
-          .modal.fade(id="lightbox"+rating.road.id, tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
+          .modal.fade(id='lightbox'+rating.road.id, tabindex='-1', role='dialog', aria-labelledby='myLargeModalLabel', aria-hidden='true')
             .modal-dialog
               .modal-content
                 .modal-header
                   button.close#modalclose(type='button', data-dismiss='modal', aria-hidden='true') &times;
                   h4#myModalLabel.modal-title #{rating.road.routename}
                   h6 #{rating.road.description}
-                  p(id="averageRating"+rating.road.id) #{rating.rating}
+                  p(id='averageRating'+rating.road.id) #{rating.rating}
                   if user 
-                    form(class="sendFormRating", data-route_id=rating.road.id)
-                      select(id="selectRating"+rating.road.id, name='addRating')
+                    form(class='sendFormRating', data-route_id=rating.road.id)
+                      select(id='selectRating'+rating.road.id, name='addRating')
                         option(value='undefined') Give a rating
                         option(value='1') Hell (1)
                         option(value='2') Bad (2)
                         option(value='3') Meh (3)
                         option(value='4') Good (4)
                         option(value='5') Heaven (5)
-                      input(class='sendRating' type="submit" value="Go")
+                      input(class='sendRating' type='submit' value='Go')
                 .modal-body
                   img(src='/../img/photo'+rating.road.id+'.png', alt='', class=rating.road.country)
     
@@ -346,6 +346,8 @@ html
 
 
   script.
+    var gebruiker = "";
+
     $('#loginForm').submit(function(event) { 
     //we use sumbit action instead of click, to enable client side validation and server side validation
       event.preventDefault();//prevents popup from going away too early
@@ -354,7 +356,7 @@ html
         loginEmailInput:document.getElementById('loginemail').value,
         loginPasswordInput:document.getElementById('loginpassword').value
       }
-      $.post('/login', data, (res) => {
+      $.post('/', data, (res) => {
       //checking on server if email and password are correct, then callback different actions for different res
         if (res === 'error'){
           $('#loginpassword').after('<p class="tempMes">Invalid email or password</p>');
@@ -366,22 +368,30 @@ html
             $('#loginpassword').after('<p class="tempMes">Please enter your password</p>');
           } else {
             document.getElementById('id02').style.display='none'
-            //hide popup
-            $('#login').remove();
-            $('#signup').remove();
-            //remove buttons
-            $('#logo').after('<h2 class="welcome"> Welcome ' + res.user.email + '!</h2>')
-            $('.welcome').before('<button id="unicorn"> <a href="/logout"> Logout </a></button>');
-            //add welcome message (user session is stored in res)
-
+            console.log('gebruiker is dit')
+            console.log(res.user)
+            gebruiker = res.user
           }
+          location.reload();
+          //- if (gebruiker) {
+          //-   //hide popup
+          //-   $('#login').remove();
+          //-   $('#signup').remove();
+          //-   //remove buttons
+          //-   $('#logo').after('<h2 class="welcome"> Welcome ' + res.user.username + '!</h2>')
+          //-   $('.welcome').before('<button id="unicorn"> <a href="/logout"> Logout </a></button>');
+          //-   //add welcome message (user session is stored in res)
+          //- }
+          
       })
     })
-
+    console.log('dit is de gebruiker')
+    console.log(gebruiker)
     $('#signupForm').submit(function(event) {
       event.preventDefault();
       $('.tempMes').remove();
       var data = {
+        signupUsernameInput: document.getElementById('signupusername').value,
         signupEmailInput:document.getElementById('signupemail').value,
         signupPasswordInput:document.getElementById('signuppassword').value
       }
@@ -390,18 +400,15 @@ html
           $('#signuppassword').after('<p class="tempMes">Invalid email or password</p>');
           console.log(res);
 
-          } else if (res === 'emailempty') {
-            $('#signuppassword').after('<p class="tempMes">Please enter your email</p>');
-          } else if (res === 'passwordempty') {
-            $('#signuppassword').after('<p class="tempMes">Please enter your password</p>');
-          } else {
-            document.getElementById('id01').style.display='none'
-          }
+        } else if (res === 'emailempty') {
+          $('#signuppassword').after('<p class="tempMes">Please enter your email</p>');
+        } else if (res === 'passwordempty') {
+          $('#signuppassword').after('<p class="tempMes">Please enter your password</p>');
+        } else {
+          document.getElementById('id01').style.display='none'
+        }
       })
     })
-
-    var gebruiker = #{user}
-    console.log(gebruiker)
 
     $(document).ready(function(){
       $('#selectbar').change(function(event){
@@ -416,25 +423,51 @@ html
           $('#result').remove()
           $('.oneResult').remove()
           $('.sendFormRating').remove()
-          for(var i = 0; i < res.roads.length; i++){
-            var ratingThis = res.roads[i].id
-            $('#picdiv').append('<div class="oneResult", data-route_id='+ res.roads[i].id+'><h1>' + res.roads[i].routename + '</h1>' +
-              '<h4>' + res.roads[i].country + '</h4>' +
-              '<p>' + res.roads[i].description + '</p>' +
-              '<p id="averageRating'+ratingThis+'">' + res.ratings[i].rating+'</p></div>')
-            if (gebruiker == undefined) {
+          if (nameOfCountry === 'all') {
+            for(var i = 0; i<res.roads.length; i++){
+              $('#picdiv').append(
+                '<div class="col-lg-3 col-sm-4 col-xs-6 image-holder">' +
+                '<div class="panel panel-default">'+
+                  '<div class="panel-body"><a href="#" data-toggle="modal" data-target="#lightbox'+res.roads[i].id+'" class="zoom"><img src="/../img/photo'+res.roads[i].id+'.png" alt="..." class="'+res.roads[i].country+'"/><span class="overlay modal-backdrop fade in"><i class="glyphicon glyphicon-fullscreen"></i></span></a></div>'+
+                '</div>'+
+                '<h1>'+res.roads[i].routename+'</h1>'+
+                '<h4>'+res.roads[i].country+'</h4>'+
+              '</div>'+
+              '<div id="lightbox'+res.roads[i].id+'" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" class="modal fade">'+
+                '<div class="modal-dialog">'+
+                  '<div class="modal-content">'+
+                    '<div class="modal-header">'+
+                       '<button id="modalclose" type="button" data-dismiss="modal" aria-hidden="true" class="close">&times;</button>'+
+                      '<h4 id="myModalLabel" class="modal-title">'+res.roads[i].routename+'</h4>'+
+                      '<h6>'+res.roads[i].description+'</h6>'+
+                      '<p id="averageRating'+res.roads[i].id+'">'+res.ratings[i].rating+'</p>'+
+                    '</div>'+
+                    '<div class="modal-body"><img src="/../img/photo'+res.roads[i].id+'.png" alt="" class="'+res.roads[i].country+'"/></div>'+
+                  '</div>'+
+                '</div>'+
+              '</div>')
+            }
+          } else {
+            for(var i = 0; i < res.roads.length; i++){
               var ratingThis = res.roads[i].id
-              $('#result').append('<form class="sendFormRating" data-route_id='+ratingThis+'>' +
-                '<select id="selectRating'+ratingThis+'" name="addRating">' +
-                  '<option value="undefined"> Give a rating</option>' +
-                  '<option value="1"> Hell (1)</option>' +
-                  '<option value="2"> Bad (2)</option>' +
-                  '<option value="3"> Meh (3)</option>' +
-                  '<option value="4"> Good (4)</option>' +
-                  '<option value="5"> Heaven (5)</option></select>' +
-                '<input class="sendRating" type="submit" value="Go"></form>')
-            } else {
-              $('#results').append('<p>Please log in to give a rating :)</p>')
+              $('#picdiv').append('<div class="oneResult", data-route_id='+ res.roads[i].id+'><h1>' + res.roads[i].routename + '</h1>' +
+                '<h4>' + res.roads[i].country + '</h4>' +
+                '<p>' + res.roads[i].description + '</p>' +
+                '<p id="averageRating'+ratingThis+'"> Rating: ' + res.ratings[i].rating+'</p></div>')
+              if (gebruiker !== null) {
+                var ratingThis = res.roads[i].id
+                $('.oneResult').append('<form class="sendFormRating" data-route_id='+ratingThis+'>' +
+                  '<select id="selectRating'+ratingThis+'" name="addRating">' +
+                    '<option value="undefined"> Give a rating</option>' +
+                    '<option value="1"> Hell (1)</option>' +
+                    '<option value="2"> Bad (2)</option>' +
+                    '<option value="3"> Meh (3)</option>' +
+                    '<option value="4"> Good (4)</option>' +
+                    '<option value="5"> Heaven (5)</option></select>' +
+                  '<input class="sendRating" type="submit" value="Go"></form>')
+              } else {
+                $('.oneResult').append('<p>Please log in to give a rating :)</p>')
+              }
             }
             console.log('yessss we are done!')
           }
