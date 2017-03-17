@@ -91,10 +91,10 @@ app.get('/', (req, res) => {
 });
 
 // post request route for search result
-app.post('/specroute', (req, res)=>{
+app.post('/specroute:countryName', (req, res)=>{
 	// console.log('console.logging value')
 	// console.log(req.body.value)
-	var thisCountry = req.body.value
+	var thisCountry = req.params.countryName
 	if (thisCountry === "all") {
 		Roads.findAll()
 		.then(function(allRoads){
@@ -172,8 +172,8 @@ app.post('/specroute', (req, res)=>{
 	}
 })
 
-// app.get('/specroute',(req,res)=>{
-// 	if (req.query.countryName =='all'){
+// app.get('/specroute:countryName',(req,res)=>{
+// 	if (req.params.countryName =='all'){
 // 		Roads.findAll()
 // 		.then((result)=>{
 // 			res.send(result)
@@ -182,7 +182,7 @@ app.post('/specroute', (req, res)=>{
 // 	else{
 // 			Roads.findAll({
 // 		where: {
-// 			country: req.query.countryName
+// 			country: req.params.countryName
 // 		}
 // 	})
 // 	.then((result) => {
