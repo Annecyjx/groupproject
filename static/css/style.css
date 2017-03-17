@@ -43,7 +43,7 @@ body, html {
 /* just the button, without it being clicked */
 
 button#signup {
-
+    margin-left: 25px;
     position: fixed;
     width:auto;
 }
@@ -91,8 +91,9 @@ button.test {
     border: none;
     cursor: pointer;
     width: 100%;
-    position: relative;
+/*    position: relative;*/
     right: 8%;
+    margin-right: 25px;
 }
 
 /* Center the image and position the close button */
@@ -221,7 +222,6 @@ img.avatar {
 }
 
 /*Transform scale effect when you hover over*/
-.panel .panel-body a.zoom:hover img {
     transform: scale(1.3);
     -ms-transform: scale(1.3);
     -webkit-transform: scale(1.3);
@@ -620,4 +620,8 @@ a {
 .sendFormRating {
     text-align: center;
     font-family: arial;
+}
+
+#picdiv {
+    height: 325px;
 }
