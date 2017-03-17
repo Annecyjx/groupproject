@@ -301,8 +301,8 @@ sequelize.sync({force:true})
 	.then(() => {
 		//Route Germany Stuttgart to Bazel  
 		Roads.create({
-			routename: "Awesome Route",
-			description: "This road will take you to beautiful waterfalls and mind-blowing views in the German mountains.",
+			routename: "The Romantic Route",
+			description: "This road will take you to beautiful views in the southern Germany. The recommend tour duration is one day. Like castles? Like mountains and rivers? Take this one!",
 			country: "Germany",
 			latA:48.775814,
 			lngA:9.182862,
@@ -310,22 +310,23 @@ sequelize.sync({force:true})
 			lngB:7.588579,
 		})
 	.then(() => {
-		//Route Ireland, Glencullen to Glendalough 
+		//Route Ireland, Glassamucky Mountain to Laragh East 
 		Roads.create({
-			routename: "Experience Ireland",
-			description: "In Europe, we don't have route 88. We do however have route 123588.",
+			routename: "The Scenic Route",
+			description: "Ireland's one of the most picturesque drives. Discover Ireland’s most scenic stretches of asphalt. ",
 			country: "Ireland",
-			latA:53.222477,
-			lngA:-6.216159,
-			latB:53.012008,
-			lngB:-6.329883,
+			latA:53.221087,
+			lngA:-6.313617,
+			latB:53.016564,
+			lngB:-6.301745,
+
 		})
 	})
 	.then(() => {
 		//Route Bosnia & Herzegovina:  Toplica to Zavidovići 
 		Roads.create({
-			routename: "Fun Route",
-			description: "Drive on the coast of Bosnia and Herzegovina",
+			routename: "The dynamic Route",
+			description: "What makes the route unique is that no other place in Europe has such a harmonious mix of styles, cultures and religions.",
 			country: "Bosnia and Herzegovina",
 			latA:43.995644,
 			lngA:19.443950,
@@ -336,8 +337,8 @@ sequelize.sync({force:true})
 	.then(() => {
 		//Route Norway: Skei to Haltdalen
 		Roads.create({
-			routename: "Explore Route",
-			description: "Let us do something in Norway",
+			routename: "The Exploration Route",
+			description: "Please enjoy stunning nature scenery along the national tourist route in Northern Europe and find hidden gems along the way.",
 			country: "Norway",
 			latA:61.571045,
 			lngA:6.480814,
@@ -346,22 +347,22 @@ sequelize.sync({force:true})
 		})
 	})
 	.then(() => {
-		//Route Spain: A Coruña to Montjoi
+		//Route Spain:  Asturias to Gipuzkoa
 		Roads.create({
-			routename: "Southern Route",
-			description: "Always give you summer feeling",
+			routename: "The perfect Northern Spain Route",
+			description: "This epic driving adventure takes you through cool Spanish cities, historic villages, soaring mountains and a dramatic coastline. Northern Spain is fantastic choice!",
 			country: "Spain",
-			latA:43.362900,
-			lngA:-8.413781,
-			latB:42.251594,
-			lngB:3.228310,
+			latA:43.563207,
+			lngA:-6.931862,
+			latB:43.310456,
+			lngB:-1.886157,
 		})
 	})
 	.then(() => {
 		//Route Italy: Fiastra to Amendolea
 		Roads.create({
 			routename: "Need to know Route",
-			description: "You cannot miss Italy.",
+			description: "You cannot miss Italy which offers you plenty of epic driving.Discover what makes them so special and kick your trip.",
 			country: "Italy",
 			latA:43.036775,
 			lngA:13.154450,
@@ -372,8 +373,8 @@ sequelize.sync({force:true})
 	.then(() => {
 		//Route Romania: Sadova to Cerna Sat
 		Roads.create({
-			routename: "Moutain Route",
-			description: "Life in Romania.",
+			routename: "The amazing Route",
+			description: "Romania offers countless breathtaking views from the road, from the high-altitude mountains roads to those that follow river valleys and long defiles. When it comes to spectacular roads, Romania occupies one of the first places in Europe",
 			country: "Romania",
 			latA:47.565367,
 			lngA:25.475095,
@@ -384,8 +385,8 @@ sequelize.sync({force:true})
 	.then(() => {
 		//Route Austria: Garfrescha to Bruck an der Mur
 		Roads.create({
-			routename: "Bluesky Route",
-			description: "See fantastic sky ever during journey.",
+			routename: "The Bluesky Route",
+			description: "Driving in Austria is simple as there are fast and well-maintained motorways through all over the country. You will see fantastic sky ever during journey.",
 			country: "Austria",
 			latA:47.003557,
 			lngA:9.977634,
